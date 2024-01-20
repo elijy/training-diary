@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Excercise from "./components/Excercise";
 
 function App() {
   const [excercises, setExcercises] = useState([]);
@@ -6,8 +7,14 @@ function App() {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    setExcercises([...excercises, excercise])
+    setExcercises([...excercises,{id: Math.floor(Math.random() * 999), name: excercise, sets: []}])
     setExcercise('');
+  }
+
+  const addSetsReps = (id, weight, reps) => {
+    setExcercises([
+      ...excercises.map(ex => ex.id === id ? {...ex, sets: [...ex.sets, {weight, reps}]} : ex)
+    ])
   }
 
   return (
@@ -19,7 +26,9 @@ function App() {
         <button>Add</button>
       </form>
       {excercises.map(excercise => {
-        return <div>{excercise}</div>
+        return (
+          <Excercise key={excercise.id} item={excercise} onAdd={addSetsReps}/>
+        )
       })}
     </div>
   );
