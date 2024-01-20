@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Excercise({ item, onAdd }) {
+function Exercise({ item, onAdd }) {
   const [weight, setWeight] = useState(0);
   const [reps, setReps] = useState(0);
 
@@ -40,4 +40,4 @@ function Excercise({ item, onAdd }) {
   );
 }
 
-export default Excercise;
+export default Exercise;
