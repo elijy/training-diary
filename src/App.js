@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Exercise from "./components/Exercise";
+import ExerciseList from "./components/ExerciseList";
 
 function App() {
   const [exercises, setExercises] = useState([]);
   const [exercise, setExercise] = useState("");
+  const [selectedExercise, setSelectedExercise] = useState(null);
 
   const fetchExercises = async () => {
     const { data } = await axios.get("http://localhost:3001/exercises");
@@ -25,7 +26,7 @@ function App() {
     setExercise("");
   };
 
-  const addSetsReps = async (id, weight, reps) => {
+  const addSet = async (id, weight, reps) => {
     const exToBeUpdated = exercises.find((ex) => ex.id === id);
     const { data } = await axios.put(`http://localhost:3001/exercises/${id}`, {
       ...exToBeUpdated,
@@ -37,17 +38,36 @@ function App() {
 
   return (
     <div>
-      Training App
-      <form onSubmit={submitHandler}>
-        <label>Excercise: </label>
-        <input value={exercise} onChange={(e) => setExercise(e.target.value)} />
-        <button>Add</button>
-      </form>
-      {exercises.map((excercise) => {
-        return (
-          <Exercise key={excercise.id} item={excercise} onAdd={addSetsReps} />
-        );
-      })}
+      <div className="hero is-primary">
+        <div className="hero-body">
+          <h1 className="title">Training App</h1>
+        </div>
+      </div>
+
+      <div className="section">
+        <div className="container">
+          <div className="box">
+            <form onSubmit={submitHandler}>
+              <div className="field">
+                <label className="label">Add Exercise</label>
+                <div className="control">
+                  <input
+                    className="input"
+                    placeholder="Bench Press"
+                    type="text"
+                    value={exercise}
+                    onChange={(e) => setExercise(e.target.value)}
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div className="container">
+            <ExerciseList exercises={exercises} onAddSet={addSet} />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
