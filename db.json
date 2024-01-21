@@ -21,11 +21,7 @@
           "reps": 0
         },
         {
-          "weight": "2",
-          "reps": 0
-        },
-        {
-          "weight": "4",
+          "weight": "3",
           "reps": 0
         },
         {
@@ -37,7 +33,7 @@
           "reps": 0
         },
         {
-          "weight": "2",
+          "weight": "5",
           "reps": 0
         },
         {
@@ -46,11 +42,7 @@
         },
         {
           "weight": "2",
-          "reps": 0
-        },
-        {
-          "weight": "2",
-          "reps": 0
+          "reps": "2"
         }
       ]
     },
@@ -65,13 +57,46 @@
         {
           "weight": 0,
           "reps": 0
+        },
+        {
+          "weight": "2",
+          "reps": 0
+        },
+        {
+          "weight": "2",
+          "reps": 0
         }
       ]
     },
     {
       "id": "4a07",
       "name": "bench",
-      "sets": []
+      "sets": [
+        {
+          "weight": "3",
+          "reps": 0
+        },
+        {
+          "weight": "3",
+          "reps": 0
+        },
+        {
+          "weight": "3",
+          "reps": 0
+        },
+        {
+          "weight": "3",
+          "reps": 0
+        },
+        {
+          "weight": "3",
+          "reps": 0
+        },
+        {
+          "weight": "3",
+          "reps": 0
+        }
+      ]
     },
     {
       "id": "e73f",
@@ -92,6 +117,10 @@
         {
           "weight": "2",
           "reps": 0
+        },
+        {
+          "weight": "2",
+          "reps": "4"
         }
       ]
     }

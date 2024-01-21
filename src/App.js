@@ -5,7 +5,6 @@ import ExerciseList from "./components/ExerciseList";
 function App() {
   const [exercises, setExercises] = useState([]);
   const [exercise, setExercise] = useState("");
-  const [selectedExercise, setSelectedExercise] = useState(null);
 
   const fetchExercises = async () => {
     const { data } = await axios.get("http://localhost:3001/exercises");

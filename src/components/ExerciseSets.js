@@ -4,7 +4,7 @@ function ExerciseSets({ exercise, onAddSet }) {
   const [weight, setWeight] = useState(0);
   const [reps, setReps] = useState(0);
 
-  const handleAddSet = (e) => {
+  const handleAddSet = () => {
     onAddSet(exercise.id, weight, reps);
   };
 
