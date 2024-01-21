@@ -1,0 +1,53 @@
+{
+  "exercises": [
+    {
+      "id": "1382",
+      "name": "db press",
+      "sets": [
+        {
+          "weight": 0,
+          "reps": "2"
+        },
+        {
+          "weight": 0,
+          "reps": "1"
+        },
+        {
+          "weight": 0,
+          "reps": 0
+        },
+        {
+          "weight": 0,
+          "reps": 0
+        },
+        {
+          "weight": 0,
+          "reps": 0
+        },
+        {
+          "weight": 0,
+          "reps": 0
+        }
+      ]
+    },
+    {
+      "id": "eae1",
+      "name": "db press",
+      "sets": [
+        {
+          "weight": 0,
+          "reps": 0
+        },
+        {
+          "weight": 0,
+          "reps": 0
+        }
+      ]
+    },
+    {
+      "id": "4a07",
+      "name": "bench",
+      "sets": []
+    }
+  ]
+}
