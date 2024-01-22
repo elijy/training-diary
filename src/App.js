@@ -15,7 +15,7 @@ function App() {
     fetchExercises();
   }, []);
 
-  const submitHandler = async (e) => {
+  const createExercise = async (e) => {
     e.preventDefault();
     const { data } = await axios.post("http://localhost:3001/exercises", {
       name: exercise,
@@ -23,6 +23,13 @@ function App() {
     });
     setExercises([...exercises, { ...data }]);
     setExercise("");
+  };
+
+  const deleteExercise = async (id) => {
+    const { data } = await axios.delete(
+      `http://localhost:3001/exercises/${id}`
+    );
+    setExercises([...exercises.filter((exercise) => exercise.id !== data.id)]);
   };
 
   const addSet = async (id, weight, reps) => {
@@ -46,7 +53,7 @@ function App() {
       <div className="section">
         <div className="container">
           <div className="box">
-            <form onSubmit={submitHandler}>
+            <form onSubmit={createExercise}>
               <div className="field">
                 <label className="label">Add Exercise</label>
                 <div className="control">
@@ -63,7 +70,11 @@ function App() {
           </div>
 
           <div className="container">
-            <ExerciseList exercises={exercises} onAddSet={addSet} />
+            <ExerciseList
+              exercises={exercises}
+              onDeleteExercise={deleteExercise}
+              onAddSet={addSet}
+            />
           </div>
         </div>
       </div>

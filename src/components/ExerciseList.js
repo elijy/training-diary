@@ -3,7 +3,7 @@ import { useState } from "react";
 import Exercise from "./Exercise";
 import ExerciseSets from "./ExerciseSets";
 
-function ExerciseList({ exercises, onAddSet }) {
+function ExerciseList({ exercises, onAddSet, onDeleteExercise }) {
   const [selectedExercise, setSelectedExercise] = useState(null);
 
   const getSelectedExercise = () => {
@@ -15,15 +15,20 @@ function ExerciseList({ exercises, onAddSet }) {
       <div className="column">
         <div className="box">
           <div className="title is-3">Workout</div>
-          {exercises.map((exercise) => {
-            return (
-              <Exercise
-                key={exercise.id}
-                exercise={exercise}
-                onClick={(exercise) => setSelectedExercise(exercise)}
-              />
-            );
-          })}
+          <div className="menu">
+            <ul className="menu-list">
+              {exercises.map((exercise) => {
+                return (
+                  <Exercise
+                    key={exercise.id}
+                    exercise={exercise}
+                    onClick={(exercise) => setSelectedExercise(exercise)}
+                    onDeleteExercise={onDeleteExercise}
+                  />
+                );
+              })}
+            </ul>
+          </div>
         </div>
       </div>
       <div className="column">
