@@ -6,7 +6,7 @@ function Exercise({ exercise, onClick, onDeleteExercise }) {
           className="is-flex is-align-items-center is-justify-content-space-between"
           onClick={() => onClick(exercise)}
         >
-          {exercise.name}{" "}
+          {exercise.name}
           <button
             onClick={() => onDeleteExercise(exercise.id)}
             className="delete is-small"

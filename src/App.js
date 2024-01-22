@@ -33,10 +33,20 @@ function App() {
   };
 
   const addSet = async (id, weight, reps) => {
-    const exToBeUpdated = exercises.find((ex) => ex.id === id);
+    const exerciseToBeUpdated = exercises.find((ex) => ex.id === id);
     const { data } = await axios.put(`http://localhost:3001/exercises/${id}`, {
-      ...exToBeUpdated,
-      sets: [...exToBeUpdated.sets, { weight, reps }],
+      ...exerciseToBeUpdated,
+      sets: [...exerciseToBeUpdated.sets, { weight, reps }],
+    });
+
+    setExercises([...exercises.map((ex) => (ex.id === id ? { ...data } : ex))]);
+  };
+
+  const deleteSet = async (id, index) => {
+    const exerciseToBeUpdated = exercises.find((ex) => ex.id === id);
+    const { data } = await axios.put(`http://localhost:3001/exercises/${id}`, {
+      ...exerciseToBeUpdated,
+      sets: [...exerciseToBeUpdated.sets.toSpliced(index, 1)],
     });
 
     setExercises([...exercises.map((ex) => (ex.id === id ? { ...data } : ex))]);
@@ -74,6 +84,7 @@ function App() {
               exercises={exercises}
               onDeleteExercise={deleteExercise}
               onAddSet={addSet}
+              onDeleteSet={deleteSet}
             />
           </div>
         </div>
