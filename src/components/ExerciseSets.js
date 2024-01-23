@@ -5,7 +5,10 @@ function ExerciseSets({ exercise, onAddSet, onDeleteSet }) {
   const [reps, setReps] = useState(0);
 
   const handleAddSet = () => {
-    onAddSet(exercise.id, weight, reps);
+    const weightNum = parseInt(weight) || 0;
+    const repsNum = parseInt(reps) || 0;
+
+    onAddSet(exercise.id, weightNum, repsNum);
   };
 
   const handleDeleteSet = (index) => {
@@ -45,7 +48,7 @@ function ExerciseSets({ exercise, onAddSet, onDeleteSet }) {
           <label className="label">Weight:</label>
 
           <input
-            value={weight}
+            value={weight || ""}
             onChange={(e) => setWeight(e.target.value)}
             type="number"
             className="input"
@@ -56,7 +59,7 @@ function ExerciseSets({ exercise, onAddSet, onDeleteSet }) {
           <label className="label">Reps:</label>
 
           <input
-            value={reps}
+            value={reps || ""}
             onChange={(e) => setReps(e.target.value)}
             type="number"
             className="input"

@@ -5,12 +5,8 @@
       "name": "Bench",
       "sets": [
         {
-          "weight": "5",
-          "reps": "2"
-        },
-        {
-          "weight": "2",
-          "reps": 0
+          "weight": 6,
+          "reps": 1
         }
       ]
     },
@@ -22,12 +18,7 @@
     {
       "id": "2c5b",
       "name": "Deadlift",
-      "sets": [
-        {
-          "weight": "5",
-          "reps": 0
-        }
-      ]
+      "sets": []
     }
   ]
 }
