@@ -1,55 +1,27 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import ExerciseList from "./components/ExerciseList";
+import useExcercisesContext from "./hooks/use-exercises-context";
 
 function App() {
-  const [exercises, setExercises] = useState([]);
+  const {
+    exercises,
+    fetchExercises,
+    createExercise,
+    deleteExercise,
+    addSet,
+    deleteSet,
+  } = useExcercisesContext();
   const [exercise, setExercise] = useState("");
 
-  const fetchExercises = async () => {
-    const { data } = await axios.get("http://localhost:3001/exercises");
-    setExercises([...data]);
-  };
-
+  // use callback here
   useEffect(() => {
     fetchExercises();
   }, []);
 
-  const createExercise = async (e) => {
+  const handleCreateExercise = async (e) => {
     e.preventDefault();
-    const { data } = await axios.post("http://localhost:3001/exercises", {
-      name: exercise,
-      sets: [],
-    });
-    setExercises([...exercises, { ...data }]);
+    createExercise(exercise);
     setExercise("");
-  };
-
-  const deleteExercise = async (id) => {
-    const { data } = await axios.delete(
-      `http://localhost:3001/exercises/${id}`
-    );
-    setExercises([...exercises.filter((exercise) => exercise.id !== data.id)]);
-  };
-
-  const addSet = async (id, weight, reps) => {
-    const exerciseToBeUpdated = exercises.find((ex) => ex.id === id);
-    const { data } = await axios.put(`http://localhost:3001/exercises/${id}`, {
-      ...exerciseToBeUpdated,
-      sets: [...exerciseToBeUpdated.sets, { weight, reps }],
-    });
-
-    setExercises([...exercises.map((ex) => (ex.id === id ? { ...data } : ex))]);
-  };
-
-  const deleteSet = async (id, index) => {
-    const exerciseToBeUpdated = exercises.find((ex) => ex.id === id);
-    const { data } = await axios.put(`http://localhost:3001/exercises/${id}`, {
-      ...exerciseToBeUpdated,
-      sets: [...exerciseToBeUpdated.sets.toSpliced(index, 1)],
-    });
-
-    setExercises([...exercises.map((ex) => (ex.id === id ? { ...data } : ex))]);
   };
 
   return (
@@ -63,7 +35,7 @@ function App() {
       <div className="section">
         <div className="container">
           <div className="box">
-            <form onSubmit={createExercise}>
+            <form onSubmit={handleCreateExercise}>
               <div className="field">
                 <label className="label">Add Exercise</label>
                 <div className="control">
