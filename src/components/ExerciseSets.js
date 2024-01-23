@@ -1,18 +1,20 @@
 import { useState } from "react";
+import useExcercisesContext from "../hooks/use-exercises-context";
 
-function ExerciseSets({ exercise, onAddSet, onDeleteSet }) {
+function ExerciseSets({ exercise }) {
   const [weight, setWeight] = useState(0);
   const [reps, setReps] = useState(0);
+
+  const { addSet, deleteSet } = useExcercisesContext();
 
   const handleAddSet = () => {
     const weightNum = parseInt(weight) || 0;
     const repsNum = parseInt(reps) || 0;
-
-    onAddSet(exercise.id, weightNum, repsNum);
+    addSet(exercise.id, weightNum, repsNum);
   };
 
   const handleDeleteSet = (index) => {
-    onDeleteSet(exercise.id, index);
+    deleteSet(exercise.id, index);
   };
 
   return (

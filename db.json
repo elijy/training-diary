@@ -7,13 +7,22 @@
         {
           "weight": 6,
           "reps": 1
+        },
+        {
+          "weight": 3,
+          "reps": 1
         }
       ]
     },
     {
       "id": "d360",
       "name": "Squat",
-      "sets": []
+      "sets": [
+        {
+          "weight": 3,
+          "reps": 1
+        }
+      ]
     },
     {
       "id": "2c5b",

@@ -1,22 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ExerciseList from "./components/ExerciseList";
 import useExcercisesContext from "./hooks/use-exercises-context";
 
 function App() {
-  const {
-    exercises,
-    fetchExercises,
-    createExercise,
-    deleteExercise,
-    addSet,
-    deleteSet,
-  } = useExcercisesContext();
   const [exercise, setExercise] = useState("");
 
-  // use callback here
-  useEffect(() => {
-    fetchExercises();
-  }, []);
+  const { createExercise } = useExcercisesContext();
 
   const handleCreateExercise = async (e) => {
     e.preventDefault();
@@ -52,12 +41,7 @@ function App() {
           </div>
 
           <div className="container">
-            <ExerciseList
-              exercises={exercises}
-              onDeleteExercise={deleteExercise}
-              onAddSet={addSet}
-              onDeleteSet={deleteSet}
-            />
+            <ExerciseList />
           </div>
         </div>
       </div>

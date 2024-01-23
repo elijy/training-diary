@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import useExcercisesContext from "../hooks/use-exercises-context";
 
 import Exercise from "./Exercise";
 import ExerciseSets from "./ExerciseSets";
 
-function ExerciseList({ exercises, onAddSet, onDeleteExercise, onDeleteSet }) {
+function ExerciseList() {
   const [selectedExercise, setSelectedExercise] = useState(null);
+  const { exercises, fetchExercises, deleteExercise } = useExcercisesContext();
+
+  // use callback here
+  useEffect(() => {
+    fetchExercises();
+  }, []);
 
   const getSelectedExercise = () => {
     return exercises.find((ex) => ex.id === selectedExercise?.id);
@@ -23,7 +30,7 @@ function ExerciseList({ exercises, onAddSet, onDeleteExercise, onDeleteSet }) {
                     key={exercise.id}
                     exercise={exercise}
                     onClick={(exercise) => setSelectedExercise(exercise)}
-                    onDeleteExercise={onDeleteExercise}
+                    onDeleteExercise={deleteExercise}
                   />
                 );
               })}
@@ -32,13 +39,7 @@ function ExerciseList({ exercises, onAddSet, onDeleteExercise, onDeleteSet }) {
         </div>
       </div>
       <div className="column">
-        {selectedExercise && (
-          <ExerciseSets
-            exercise={getSelectedExercise()}
-            onAddSet={onAddSet}
-            onDeleteSet={onDeleteSet}
-          />
-        )}
+        {selectedExercise && <ExerciseSets exercise={getSelectedExercise()} />}
       </div>
     </div>
   );
