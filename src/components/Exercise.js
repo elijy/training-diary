@@ -1,8 +1,4 @@
-import useExcercisesContext from "../hooks/use-exercises-context";
-
-function Exercise({ exercise, onClick }) {
-  const { deleteExercise } = useExcercisesContext();
-
+function Exercise({ exercise, onClick, onDeleteExercise }) {
   return (
     <li>
       <a>
@@ -12,7 +8,7 @@ function Exercise({ exercise, onClick }) {
         >
           {exercise.name}
           <button
-            onClick={() => deleteExercise(exercise.id)}
+            onClick={() => onDeleteExercise(exercise.id)}
             className="delete is-small"
           ></button>
         </div>

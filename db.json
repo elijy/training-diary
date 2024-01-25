@@ -11,6 +11,14 @@
         {
           "weight": 3,
           "reps": 1
+        },
+        {
+          "weight": 3,
+          "reps": 0
+        },
+        {
+          "weight": 3,
+          "reps": 0
         }
       ]
     },
@@ -27,7 +35,12 @@
     {
       "id": "2c5b",
       "name": "Deadlift",
-      "sets": []
+      "sets": [
+        {
+          "weight": 2,
+          "reps": 1
+        }
+      ]
     }
   ]
 }

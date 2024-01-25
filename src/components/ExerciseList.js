@@ -8,11 +8,20 @@ function ExerciseList() {
   const [selectedExercise, setSelectedExercise] = useState(null);
   const { exercises, fetchExercises, deleteExercise } = useExcercisesContext();
 
-  // use callback here
   useEffect(() => {
     fetchExercises();
-  }, []);
+  }, [fetchExercises]);
 
+  const handleDeleteExercise = (id) => {
+    deleteExercise(id);
+    setSelectedExercise(null);
+  };
+
+  const handleClick = (exercise) => {
+    setSelectedExercise(exercise);
+  };
+
+  // TODO: Fix this
   const getSelectedExercise = () => {
     return exercises.find((ex) => ex.id === selectedExercise?.id);
   };
@@ -29,8 +38,8 @@ function ExerciseList() {
                   <Exercise
                     key={exercise.id}
                     exercise={exercise}
-                    onClick={(exercise) => setSelectedExercise(exercise)}
-                    onDeleteExercise={deleteExercise}
+                    onClick={handleClick}
+                    onDeleteExercise={handleDeleteExercise}
                   />
                 );
               })}
@@ -39,7 +48,9 @@ function ExerciseList() {
         </div>
       </div>
       <div className="column">
-        {selectedExercise && <ExerciseSets exercise={getSelectedExercise()} />}
+        {getSelectedExercise() && (
+          <ExerciseSets exercise={getSelectedExercise()} />
+        )}
       </div>
     </div>
   );

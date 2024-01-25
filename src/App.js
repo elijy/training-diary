@@ -7,7 +7,7 @@ function App() {
 
   const { createExercise } = useExcercisesContext();
 
-  const handleCreateExercise = async (e) => {
+  const handleCreateExercise = (e) => {
     e.preventDefault();
     createExercise(exercise);
     setExercise("");

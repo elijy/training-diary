@@ -1,5 +1,4 @@
-import { createContext } from "react";
-import { useState } from "react";
+import { useState, useCallback, createContext } from "react";
 import axios from "axios";
 
 const ExerciseContext = createContext();
@@ -7,10 +6,10 @@ const ExerciseContext = createContext();
 function Provider({ children }) {
   const [exercises, setExercises] = useState([]);
 
-  const fetchExercises = async () => {
+  const fetchExercises = useCallback(async () => {
     const { data } = await axios.get("http://localhost:3001/exercises");
     setExercises([...data]);
-  };
+  }, []);
 
   const createExercise = async (exercise) => {
     const { data } = await axios.post("http://localhost:3001/exercises", {
