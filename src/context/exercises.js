@@ -1,58 +1,96 @@
-import { useState, useCallback, createContext } from "react";
+import { useCallback, useReducer, createContext } from "react";
 import axios from "axios";
+import {
+  exercisesReducer,
+  SET_SELECTED_EXERCISE,
+  FETCH_EXERCISES,
+  ADD_EXERCISE,
+  DELETE_EXERCISE,
+  UPDATE_SETS,
+} from "../reducers/exercises";
 
 const ExerciseContext = createContext();
 
 function Provider({ children }) {
-  const [exercises, setExercises] = useState([]);
+  const [state, dispatch] = useReducer(exercisesReducer, {
+    selectedExercise: null,
+    exercises: [],
+  });
 
   const fetchExercises = useCallback(async () => {
     const { data } = await axios.get("http://localhost:3001/exercises");
-    setExercises([...data]);
+
+    dispatch({
+      type: FETCH_EXERCISES,
+      payload: data,
+    });
   }, []);
+
+  const setSelectedExercise = (exercise) => {
+    dispatch({
+      type: SET_SELECTED_EXERCISE,
+      payload: exercise,
+    });
+  };
 
   const createExercise = async (exercise) => {
     const { data } = await axios.post("http://localhost:3001/exercises", {
       name: exercise,
       sets: [],
     });
-    setExercises([...exercises, { ...data }]);
+
+    dispatch({
+      type: ADD_EXERCISE,
+      payload: data,
+    });
   };
 
   const deleteExercise = async (id) => {
     const { data } = await axios.delete(
       `http://localhost:3001/exercises/${id}`
     );
-    setExercises([...exercises.filter((exercise) => exercise.id !== data.id)]);
+
+    dispatch({
+      type: DELETE_EXERCISE,
+      payload: data,
+    });
   };
 
   const addSet = async (id, weight, reps) => {
-    const exerciseToBeUpdated = exercises.find((ex) => ex.id === id);
+    const exerciseToBeUpdated = state.exercises.find((ex) => ex.id === id);
     const { data } = await axios.put(`http://localhost:3001/exercises/${id}`, {
       ...exerciseToBeUpdated,
       sets: [...exerciseToBeUpdated.sets, { weight, reps }],
     });
 
-    setExercises([...exercises.map((ex) => (ex.id === id ? { ...data } : ex))]);
+    dispatch({
+      type: UPDATE_SETS,
+      payload: data,
+    });
   };
 
   const deleteSet = async (id, index) => {
-    const exerciseToBeUpdated = exercises.find((ex) => ex.id === id);
+    const exerciseToBeUpdated = state.exercises.find((ex) => ex.id === id);
     const { data } = await axios.put(`http://localhost:3001/exercises/${id}`, {
       ...exerciseToBeUpdated,
       sets: [...exerciseToBeUpdated.sets.toSpliced(index, 1)],
     });
 
-    setExercises([...exercises.map((ex) => (ex.id === id ? { ...data } : ex))]);
+    dispatch({
+      type: UPDATE_SETS,
+      payload: data,
+    });
   };
 
   const value = {
-    exercises,
-    createExercise,
+    exercises: state.exercises,
+    selectedExercise: state.selectedExercise,
     fetchExercises,
+    setSelectedExercise,
+    createExercise,
     deleteExercise,
-    deleteSet,
     addSet,
+    deleteSet,
   };
 
   return (

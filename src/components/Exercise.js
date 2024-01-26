@@ -1,14 +1,18 @@
-function Exercise({ exercise, onClick, onDeleteExercise }) {
+import useExcercisesContext from "../hooks/use-exercises-context";
+
+function Exercise({ exercise }) {
+  const { deleteExercise, setSelectedExercise } = useExcercisesContext();
+
   return (
     <li>
       <a>
         <div
           className="is-flex is-align-items-center is-justify-content-space-between"
-          onClick={() => onClick(exercise)}
+          onClick={() => setSelectedExercise(exercise)}
         >
           {exercise.name}
           <button
-            onClick={() => onDeleteExercise(exercise.id)}
+            onClick={() => deleteExercise(exercise.id)}
             className="delete is-small"
           ></button>
         </div>
