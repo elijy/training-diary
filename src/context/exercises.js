@@ -56,6 +56,19 @@ function Provider({ children }) {
     });
   };
 
+  const updateExercise = async (id, newName) => {
+    const exerciseToBeUpdated = state.exercises.find((ex) => ex.id === id);
+    const { data } = await axios.put(`http://localhost:3001/exercises/${id}`, {
+      ...exerciseToBeUpdated,
+      name: newName,
+    });
+
+    dispatch({
+      type: UPDATE_SETS,
+      payload: data,
+    });
+  };
+
   const addSet = async (id, weight, reps) => {
     const exerciseToBeUpdated = state.exercises.find((ex) => ex.id === id);
     const { data } = await axios.put(`http://localhost:3001/exercises/${id}`, {
@@ -89,6 +102,7 @@ function Provider({ children }) {
     setSelectedExercise,
     createExercise,
     deleteExercise,
+    updateExercise,
     addSet,
     deleteSet,
   };

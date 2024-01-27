@@ -1,28 +1,30 @@
 import { useState } from "react";
 import useExcercisesContext from "../hooks/use-exercises-context";
 
-function ExerciseSets({ exercise }) {
+import ExerciseName from "./ExerciseName";
+
+function ExerciseSets() {
   const [weight, setWeight] = useState(0);
   const [reps, setReps] = useState(0);
 
-  const { addSet, deleteSet } = useExcercisesContext();
+  const { addSet, deleteSet, selectedExercise } = useExcercisesContext();
 
   const handleAddSet = () => {
     const weightNum = parseInt(weight) || 0;
     const repsNum = parseInt(reps) || 0;
-    addSet(exercise.id, weightNum, repsNum);
+    addSet(selectedExercise.id, weightNum, repsNum);
   };
 
   const handleDeleteSet = (index) => {
-    deleteSet(exercise.id, index);
+    deleteSet(selectedExercise.id, index);
   };
 
   return (
     <div className="box">
-      <div className="title is-4">{exercise?.name}</div>
+      <ExerciseName key={selectedExercise} exercise={selectedExercise} />
       <div className="menu">
         <ul className="menu-list">
-          {exercise?.sets.map((set, index) => {
+          {selectedExercise?.sets.map((set, index) => {
             return (
               <li key={index}>
                 <a>
