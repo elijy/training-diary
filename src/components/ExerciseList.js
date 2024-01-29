@@ -1,12 +1,15 @@
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import useExcercisesContext from "../hooks/use-exercises-context";
 
 import Exercise from "./Exercise";
 import ExerciseSets from "./ExerciseSets";
 
 function ExerciseList() {
-  const { exercises, fetchExercises, selectedExercise } =
-    useExcercisesContext();
+  const { exercises, fetchExercises } = useExcercisesContext();
+  const selectedExercise = useSelector(
+    (state) => state.exercises.selectedExercise
+  );
 
   useEffect(() => {
     fetchExercises();

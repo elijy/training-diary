@@ -7,7 +7,7 @@ function ExerciseName({ exercise }) {
   const { updateExercise } = useExcercisesContext();
 
   const [showEdit, setShowEdit] = useState(false);
-  const [newName, setNewName] = useState(exercise.name); // TODO: Fix this
+  const [newName, setNewName] = useState(exercise?.name); // TODO: Fix this
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,7 +28,7 @@ function ExerciseName({ exercise }) {
           </form>
         </div>
       ) : (
-        <div>{exercise.name}</div>
+        <div>{exercise?.name}</div>
       )}
       {showEdit ? (
         <span>

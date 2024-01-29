@@ -1,14 +1,17 @@
 import useExcercisesContext from "../hooks/use-exercises-context";
+import { useDispatch } from "react-redux";
+import { setSelectedExercise } from "../store/slices/exercisesSlice";
 
 function Exercise({ exercise }) {
-  const { deleteExercise, setSelectedExercise } = useExcercisesContext();
+  const { deleteExercise } = useExcercisesContext();
+  const dispatch = useDispatch();
 
   return (
     <li>
       <a>
         <div
           className="is-flex is-align-items-center is-justify-content-space-between"
-          onClick={() => setSelectedExercise(exercise)}
+          onClick={() => dispatch(setSelectedExercise(exercise))}
         >
           {exercise.name}
           <button
