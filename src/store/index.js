@@ -9,3 +9,4 @@ export default configureStore({
 
 export * from "./thunks/fetchExercises";
 export * from "./thunks/createExercise";
+export * from "./thunks/deleteExercise";

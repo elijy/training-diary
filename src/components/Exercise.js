@@ -1,9 +1,8 @@
-import useExcercisesContext from "../hooks/use-exercises-context";
 import { useDispatch } from "react-redux";
+import { deleteExercise } from "../store";
 import { setSelectedExercise } from "../store/slices/exercisesSlice";
 
 function Exercise({ exercise }) {
-  const { deleteExercise } = useExcercisesContext();
   const dispatch = useDispatch();
 
   return (
@@ -15,7 +14,7 @@ function Exercise({ exercise }) {
         >
           {exercise.name}
           <button
-            onClick={() => deleteExercise(exercise.id)}
+            onClick={() => dispatch(deleteExercise(exercise.id))}
             className="delete is-small"
           ></button>
         </div>
