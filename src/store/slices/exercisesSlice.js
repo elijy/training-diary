@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { fetchExercises } from "../thunks/fetchExercises";
 
 const exercisesSlice = createSlice({
   name: "exercises",
@@ -10,6 +11,11 @@ const exercisesSlice = createSlice({
     setSelectedExercise: (state, action) => {
       state.selectedExercise = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchExercises.fulfilled, (state, action) => {
+      state.exercises = action.payload;
+    });
   },
 });
 

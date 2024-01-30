@@ -6,3 +6,5 @@ export default configureStore({
     exercises: exercisesReducer,
   },
 });
+
+export * from "./thunks/fetchExercises";

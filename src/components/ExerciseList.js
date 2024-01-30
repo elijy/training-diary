@@ -1,19 +1,21 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import useExcercisesContext from "../hooks/use-exercises-context";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchExercises } from "../store";
 
 import Exercise from "./Exercise";
 import ExerciseSets from "./ExerciseSets";
 
 function ExerciseList() {
-  const { exercises, fetchExercises } = useExcercisesContext();
+  const dispatch = useDispatch();
+
+  const exercises = useSelector((state) => state.exercises.exercises);
   const selectedExercise = useSelector(
     (state) => state.exercises.selectedExercise
   );
 
   useEffect(() => {
-    fetchExercises();
-  }, [fetchExercises]);
+    dispatch(fetchExercises());
+  }, [dispatch]);
 
   return (
     <div className="columns">
