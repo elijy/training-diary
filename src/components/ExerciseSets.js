@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { createSet } from "../store";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { createSet, fetchSetsByExercise } from "../store";
 
 import useExcercisesContext from "../hooks/use-exercises-context";
 
@@ -10,6 +10,12 @@ function ExerciseSets({ exercise }) {
   const dispatch = useDispatch();
   const [weight, setWeight] = useState(0);
   const [reps, setReps] = useState(0);
+
+  const sets = useSelector((state) => state.exercises.selectedSets);
+
+  useEffect(() => {
+    dispatch(fetchSetsByExercise(exercise.id));
+  }, [dispatch, exercise]);
 
   const { addSet, deleteSet } = useExcercisesContext();
 
@@ -31,7 +37,7 @@ function ExerciseSets({ exercise }) {
       <ExerciseName key={exercise} exercise={exercise} />
       <div className="menu">
         <ul className="menu-list">
-          {exercise?.sets.map((set, index) => {
+          {sets.map((set, index) => {
             return (
               <li key={index}>
                 <a>

@@ -2,12 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchExercises } from "../thunks/fetchExercises";
 import { createExercise } from "../thunks/createExercise";
 import { deleteExercise } from "../thunks/deleteExercise";
+import { fetchSetsByExercise } from "../thunks/fetchSets";
 
 const exercisesSlice = createSlice({
   name: "exercises",
   initialState: {
     exercises: [],
     selectedExercise: null,
+    selectedSets: [],
   },
   reducers: {
     setSelectedExercise: (state, action) => {
@@ -25,6 +27,9 @@ const exercisesSlice = createSlice({
       state.exercises = state.exercises.filter(
         (exercise) => exercise.id !== action.payload
       );
+    });
+    builder.addCase(fetchSetsByExercise.fulfilled, (state, action) => {
+      state.selectedSets = action.payload;
     });
   },
 });
