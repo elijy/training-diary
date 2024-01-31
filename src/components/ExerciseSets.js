@@ -1,9 +1,13 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { createSet } from "../store";
+
 import useExcercisesContext from "../hooks/use-exercises-context";
 
 import ExerciseName from "./ExerciseName";
 
 function ExerciseSets({ exercise }) {
+  const dispatch = useDispatch();
   const [weight, setWeight] = useState(0);
   const [reps, setReps] = useState(0);
 
@@ -12,7 +16,10 @@ function ExerciseSets({ exercise }) {
   const handleAddSet = () => {
     const weightNum = parseInt(weight) || 0;
     const repsNum = parseInt(reps) || 0;
-    addSet(exercise.id, weightNum, repsNum);
+    // addSet(exercise.id, weightNum, repsNum);
+    dispatch(
+      createSet({ exerciseId: exercise.id, weight: weightNum, reps: repsNum })
+    );
   };
 
   const handleDeleteSet = (index) => {
