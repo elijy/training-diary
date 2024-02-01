@@ -2,24 +2,18 @@ import { useDispatch } from "react-redux";
 import { deleteExercise } from "../store";
 import { setSelectedExercise } from "../store/slices/exercisesSlice";
 
-import "./ExerciseListItem.css";
+import ListItem from "./core/ListItem";
 
 function ExerciseListItem({ exercise }) {
   const dispatch = useDispatch();
 
   return (
-    <div className="exercise-list-item is-flex is-align-items-center is-justify-content-space-between">
-      <div
-        className="p-2 is-flex-grow-1"
-        onClick={() => dispatch(setSelectedExercise(exercise))}
-      >
-        {exercise.name}
-      </div>
-      <button
-        onClick={() => dispatch(deleteExercise(exercise.id))}
-        className="delete is-small mr-2"
-      ></button>
-    </div>
+    <ListItem
+      onClick={() => dispatch(setSelectedExercise(exercise))}
+      onDelete={() => dispatch(deleteExercise(exercise.id))}
+    >
+      {exercise.name}
+    </ListItem>
   );
 }
 

@@ -5,6 +5,7 @@ import { createSet, fetchSetsByExercise } from "../store";
 import useExcercisesContext from "../hooks/use-exercises-context";
 
 import ExerciseName from "./ExerciseName";
+import ListItem from "./core/ListItem";
 
 function ExerciseSets({ exercise }) {
   const dispatch = useDispatch();
@@ -35,35 +36,19 @@ function ExerciseSets({ exercise }) {
   return (
     <div className="box">
       <ExerciseName key={exercise} exercise={exercise} />
-      <div className="menu">
-        <ul className="menu-list">
-          {sets.map((set, index) => {
-            return (
-              <li key={index}>
-                <a>
-                  <div className="is-flex is-align-items-center is-justify-content-space-between">
-                    <div>
-                      <span className="has-text-weight-bold">
-                        Set {index + 1}:
-                      </span>{" "}
-                      {set.weight} x {set.reps}
-                    </div>
-                    <button
-                      onClick={() => handleDeleteSet(index)}
-                      className="delete is-small"
-                    ></button>
-                  </div>
-                </a>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-
-      <div className="field is-grouped">
+      {sets.map((set, index) => {
+        return (
+          <ListItem key={set.id} onDelete={handleDeleteSet}>
+            <div>
+              <span className="has-text-weight-bold">Set {index + 1}:</span>{" "}
+              {set.weight} x {set.reps}
+            </div>
+          </ListItem>
+        );
+      })}
+      <div className="field is-grouped mt-2">
         <div className="control">
           <label className="label">Weight:</label>
-
           <input
             value={weight || ""}
             onChange={(e) => setWeight(e.target.value)}
@@ -74,7 +59,6 @@ function ExerciseSets({ exercise }) {
 
         <div className="control">
           <label className="label">Reps:</label>
-
           <input
             value={reps || ""}
             onChange={(e) => setReps(e.target.value)}
