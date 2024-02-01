@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createSet, fetchSetsByExercise } from "../store";
-
-import useExcercisesContext from "../hooks/use-exercises-context";
+import { createSet, deleteSet, fetchSetsByExercise } from "../store";
 
 import ExerciseName from "./ExerciseName";
 import ListItem from "./core/ListItem";
@@ -18,19 +16,16 @@ function ExerciseSets({ exercise }) {
     dispatch(fetchSetsByExercise(exercise.id));
   }, [dispatch, exercise]);
 
-  const { addSet, deleteSet } = useExcercisesContext();
-
   const handleAddSet = () => {
     const weightNum = parseInt(weight) || 0;
     const repsNum = parseInt(reps) || 0;
-    // addSet(exercise.id, weightNum, repsNum);
     dispatch(
       createSet({ exerciseId: exercise.id, weight: weightNum, reps: repsNum })
     );
   };
 
-  const handleDeleteSet = (index) => {
-    deleteSet(exercise.id, index);
+  const handleDeleteSet = (id) => {
+    dispatch(deleteSet(id));
   };
 
   return (
@@ -38,7 +33,7 @@ function ExerciseSets({ exercise }) {
       <ExerciseName key={exercise} exercise={exercise} />
       {sets.map((set, index) => {
         return (
-          <ListItem key={set.id} onDelete={handleDeleteSet}>
+          <ListItem key={set.id} onDelete={() => handleDeleteSet(set.id)}>
             <div>
               <span className="has-text-weight-bold">Set {index + 1}:</span>{" "}
               {set.weight} x {set.reps}

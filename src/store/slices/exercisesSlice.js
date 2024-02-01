@@ -3,6 +3,8 @@ import { fetchExercises } from "../thunks/fetchExercises";
 import { createExercise } from "../thunks/createExercise";
 import { deleteExercise } from "../thunks/deleteExercise";
 import { fetchSetsByExercise } from "../thunks/fetchSets";
+import { createSet } from "../thunks/createSet";
+import { deleteSet } from "../thunks/deleteSet";
 
 const exercisesSlice = createSlice({
   name: "exercises",
@@ -30,6 +32,14 @@ const exercisesSlice = createSlice({
     });
     builder.addCase(fetchSetsByExercise.fulfilled, (state, action) => {
       state.selectedSets = action.payload;
+    });
+    builder.addCase(createSet.fulfilled, (state, action) => {
+      state.selectedSets.push(action.payload);
+    });
+    builder.addCase(deleteSet.fulfilled, (state, action) => {
+      state.selectedSets = state.selectedSets.filter(
+        (set) => set.id !== action.payload
+      );
     });
   },
 });
