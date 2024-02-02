@@ -1,17 +1,17 @@
 import { useState } from "react";
-import useExcercisesContext from "../hooks/use-exercises-context";
-
+import { updateExercise } from "../store";
+import { useDispatch } from "react-redux";
 import { MdEdit, MdCancel } from "react-icons/md";
 
 function ExerciseName({ exercise }) {
-  const { updateExercise } = useExcercisesContext();
+  const dispatch = useDispatch();
 
   const [showEdit, setShowEdit] = useState(false);
   const [newName, setNewName] = useState(exercise?.name); // TODO: Fix this
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateExercise(exercise.id, newName);
+    dispatch(updateExercise({ ...exercise, name: newName }));
     setShowEdit(false);
   };
 
