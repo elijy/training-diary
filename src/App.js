@@ -1,17 +1,7 @@
-import { useState } from "react";
-import { useCreateExercisesMutation } from "./store/apis/exercisesApi";
 import ExerciseList from "./components/ExerciseList";
+import ExerciseCreate from "./components/ExerciseCreate";
 
 function App() {
-  const [createExercise] = useCreateExercisesMutation();
-  const [exercise, setExercise] = useState("");
-
-  const handleCreateExercise = (e) => {
-    e.preventDefault();
-    createExercise(exercise);
-    setExercise("");
-  };
-
   return (
     <div>
       <div className="hero is-primary">
@@ -22,26 +12,8 @@ function App() {
 
       <div className="section">
         <div className="container">
-          <div className="box">
-            <form onSubmit={handleCreateExercise}>
-              <div className="field">
-                <label className="label">Add Exercise</label>
-                <div className="control">
-                  <input
-                    className="input"
-                    placeholder="Bench Press"
-                    type="text"
-                    value={exercise}
-                    onChange={(e) => setExercise(e.target.value)}
-                  />
-                </div>
-              </div>
-            </form>
-          </div>
-
-          <div className="container">
-            <ExerciseList />
-          </div>
+          <ExerciseCreate />
+          <ExerciseList />
         </div>
       </div>
     </div>
