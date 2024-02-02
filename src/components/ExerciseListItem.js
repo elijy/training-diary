@@ -1,16 +1,16 @@
 import { useDispatch } from "react-redux";
-import { deleteExercise } from "../store";
 import { setSelectedExercise } from "../store/slices/exercisesSlice";
-
+import { useDeleteExerciseMutation } from "../store/apis/exercisesApi";
 import ListItem from "./core/ListItem";
 
 function ExerciseListItem({ exercise }) {
+  const [deleteExercise] = useDeleteExerciseMutation();
   const dispatch = useDispatch();
 
   return (
     <ListItem
       onClick={() => dispatch(setSelectedExercise(exercise))}
-      onDelete={() => dispatch(deleteExercise(exercise.id))}
+      onDelete={() => deleteExercise(exercise.id)}
     >
       {exercise.name}
     </ListItem>

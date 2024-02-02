@@ -14,7 +14,7 @@ export const exercisesApi = createApi({
       providesTags: ["exercises"],
     }),
 
-    createExercises: builder.mutation({
+    createExercise: builder.mutation({
       query: (exercise) => {
         return {
           url: "/exercises",
@@ -26,8 +26,21 @@ export const exercisesApi = createApi({
       },
       invalidatesTags: ["exercises"],
     }),
+
+    deleteExercise: builder.mutation({
+      query: (id) => {
+        return {
+          url: `/exercises/${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["exercises"],
+    }),
   }),
 });
 
-export const { useGetExercisesQuery, useCreateExercisesMutation } =
-  exercisesApi;
+export const {
+  useGetExercisesQuery,
+  useCreateExerciseMutation,
+  useDeleteExerciseMutation,
+} = exercisesApi;
