@@ -1,7 +1,0 @@
-.exercise-list-item {
-    &:hover {
-        cursor: pointer;
-        border-radius: 8px;
-        background-color: rgb(211, 211, 211, 0.4);
-    }
-}

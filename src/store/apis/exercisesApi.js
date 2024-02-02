@@ -11,6 +11,7 @@ export const exercisesApi = createApi({
           method: "GET",
         };
       },
+      providesTags: ["exercises"],
     }),
 
     createExercises: builder.mutation({
@@ -23,6 +24,7 @@ export const exercisesApi = createApi({
           },
         };
       },
+      invalidatesTags: ["exercises"],
     }),
   }),
 });
