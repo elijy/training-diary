@@ -1,21 +1,15 @@
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchExercises } from "../store";
+import { useSelector } from "react-redux";
+import { useGetExercisesQuery } from "../store/apis/exercisesApi";
 
 import ExerciseListItem from "./ExerciseListItem";
 import ExerciseSets from "./ExerciseSets";
 
 function ExerciseList() {
-  const dispatch = useDispatch();
+  const { data: exercises } = useGetExercisesQuery();
 
-  const exercises = useSelector((state) => state.exercises.exercises);
   const selectedExercise = useSelector(
     (state) => state.exercises.selectedExercise
   );
-
-  useEffect(() => {
-    dispatch(fetchExercises());
-  }, [dispatch]);
 
   return (
     <div className="columns">
@@ -23,7 +17,7 @@ function ExerciseList() {
         <div className="box">
           <div className="title is-3">Workout</div>
           <div>
-            {exercises.map((exercise) => {
+            {exercises?.map((exercise) => {
               return <ExerciseListItem key={exercise.id} exercise={exercise} />;
             })}
           </div>

@@ -42,12 +42,15 @@ const exercisesSlice = createSlice({
       state.selectedExercise = null;
       state.selectedSets = [];
     });
+
     builder.addCase(fetchSetsByExercise.fulfilled, (state, action) => {
       state.selectedSets = action.payload;
     });
+
     builder.addCase(createSet.fulfilled, (state, action) => {
       state.selectedSets.push(action.payload);
     });
+
     builder.addCase(deleteSet.fulfilled, (state, action) => {
       state.selectedSets = state.selectedSets.filter(
         (set) => set.id !== action.payload

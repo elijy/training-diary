@@ -1,10 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import exercisesReducer from "./slices/exercisesSlice";
+import { exercisesApi } from "./apis/exercisesApi";
 
 export default configureStore({
   reducer: {
-    exercises: exercisesReducer,
+    [exercisesApi.reducerPath]: exercisesApi.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(exercisesApi.middleware),
 });
 
 export * from "./thunks/fetchExercises";
