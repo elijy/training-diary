@@ -12,7 +12,20 @@ export const exercisesApi = createApi({
         };
       },
     }),
+
+    createExercises: builder.mutation({
+      query: (exercise) => {
+        return {
+          url: "/exercises",
+          method: "POST",
+          body: {
+            name: exercise,
+          },
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetExercisesQuery } = exercisesApi;
+export const { useGetExercisesQuery, useCreateExercisesMutation } =
+  exercisesApi;

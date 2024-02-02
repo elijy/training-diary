@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import exercisesReducer from "./slices/exercisesSlice";
 import { exercisesApi } from "./apis/exercisesApi";
 
 export default configureStore({

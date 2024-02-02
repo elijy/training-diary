@@ -1,16 +1,14 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { createExercise } from "./store";
-
+import { useCreateExercisesMutation } from "./store/apis/exercisesApi";
 import ExerciseList from "./components/ExerciseList";
 
 function App() {
-  const dispatch = useDispatch();
+  const [createExercise] = useCreateExercisesMutation();
   const [exercise, setExercise] = useState("");
 
   const handleCreateExercise = (e) => {
     e.preventDefault();
-    dispatch(createExercise(exercise));
+    createExercise(exercise);
     setExercise("");
   };
 
