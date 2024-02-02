@@ -7,7 +7,7 @@ function ExerciseName({ exercise }) {
   const dispatch = useDispatch();
 
   const [showEdit, setShowEdit] = useState(false);
-  const [newName, setNewName] = useState(exercise?.name); // TODO: Fix this
+  const [newName, setNewName] = useState(exercise?.name);
 
   const handleSubmit = (e) => {
     e.preventDefault();

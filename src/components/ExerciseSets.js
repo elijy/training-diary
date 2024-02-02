@@ -30,7 +30,7 @@ function ExerciseSets({ exercise }) {
 
   return (
     <div className="box">
-      <ExerciseName key={exercise} exercise={exercise} />
+      <ExerciseName key={exercise.id} exercise={exercise} />
       {sets.map((set, index) => {
         return (
           <ListItem key={set.id} onDelete={() => handleDeleteSet(set.id)}>
