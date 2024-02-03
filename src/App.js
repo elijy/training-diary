@@ -1,5 +1,4 @@
-import ExerciseList from "./components/ExerciseList";
-import ExerciseCreate from "./components/ExerciseCreate";
+import { Outlet } from "react-router-dom";
 
 function App() {
   return (
@@ -12,8 +11,7 @@ function App() {
 
       <div className="section">
         <div className="container">
-          <ExerciseCreate />
-          <ExerciseList />
+          <Outlet />
         </div>
       </div>
     </div>
