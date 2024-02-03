@@ -1,15 +1,15 @@
-import { useSelector } from "react-redux";
+import { useState } from "react";
 import { useGetExercisesQuery } from "../store/apis/exercisesApi";
+import { useDeleteExerciseMutation } from "../store/apis/exercisesApi";
 
 import ExerciseListItem from "./ExerciseListItem";
 import ExerciseSets from "./ExerciseSets";
 
 function ExerciseList() {
-  const { data: exercises } = useGetExercisesQuery();
+  const [selectedExercise, setSelectedExercise] = useState(null);
 
-  const selectedExercise = useSelector(
-    (state) => state.exercises.selectedExercise
-  );
+  const { data: exercises } = useGetExercisesQuery();
+  const [deleteExercise] = useDeleteExerciseMutation();
 
   return (
     <div className="columns">
@@ -18,7 +18,17 @@ function ExerciseList() {
           <div className="title is-3">Workout</div>
           <div>
             {exercises?.map((exercise) => {
-              return <ExerciseListItem key={exercise.id} exercise={exercise} />;
+              return (
+                <ExerciseListItem
+                  key={exercise.id}
+                  exercise={exercise}
+                  onClick={(exercise) => setSelectedExercise(exercise)}
+                  onDelete={(exercise) => {
+                    deleteExercise(exercise.id);
+                    setSelectedExercise(null);
+                  }}
+                />
+              );
             })}
           </div>
         </div>

@@ -1,37 +1,35 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { createSet, deleteSet, fetchSetsByExercise } from "../store";
+import { useState } from "react";
+import {
+  useGetSetsQuery,
+  useCreateSetMutation,
+  useDeleteSetMutation,
+} from "../store/apis/setsApi";
 
 import ExerciseName from "./ExerciseName";
 import ListItem from "./core/ListItem";
 
 function ExerciseSets({ exercise }) {
-  const dispatch = useDispatch();
   const [weight, setWeight] = useState(0);
   const [reps, setReps] = useState(0);
 
-  const sets = useSelector((state) => state.exercises.selectedSets);
-
-  useEffect(() => {
-    dispatch(fetchSetsByExercise(exercise.id));
-  }, [dispatch, exercise]);
+  const { data: sets } = useGetSetsQuery(exercise.id);
+  const [createSet] = useCreateSetMutation();
+  const [deleteSet] = useDeleteSetMutation();
 
   const handleAddSet = () => {
     const weightNum = parseInt(weight) || 0;
     const repsNum = parseInt(reps) || 0;
-    dispatch(
-      createSet({ exerciseId: exercise.id, weight: weightNum, reps: repsNum })
-    );
+    createSet({ exerciseId: exercise.id, weight: weightNum, reps: repsNum });
   };
 
   const handleDeleteSet = (id) => {
-    dispatch(deleteSet(id));
+    deleteSet(id);
   };
 
   return (
     <div className="box">
       <ExerciseName key={exercise.id} exercise={exercise} />
-      {sets.map((set, index) => {
+      {sets?.map((set, index) => {
         return (
           <ListItem key={set.id} onDelete={() => handleDeleteSet(set.id)}>
             <div>
