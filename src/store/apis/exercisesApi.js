@@ -27,6 +27,19 @@ export const exercisesApi = createApi({
       invalidatesTags: ["exercises"],
     }),
 
+    updateExercise: builder.mutation({
+      query: (exercise) => {
+        return {
+          url: `/exercises/${exercise.id}`,
+          method: "PUT",
+          body: {
+            name: exercise.name,
+          },
+        };
+      },
+      invalidatesTags: ["exercises"],
+    }),
+
     deleteExercise: builder.mutation({
       query: (id) => {
         return {
@@ -42,5 +55,6 @@ export const exercisesApi = createApi({
 export const {
   useGetExercisesQuery,
   useCreateExerciseMutation,
+  useUpdateExerciseMutation,
   useDeleteExerciseMutation,
 } = exercisesApi;

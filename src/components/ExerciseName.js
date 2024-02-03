@@ -1,17 +1,17 @@
 import { useState } from "react";
-import { updateExercise } from "../store";
-import { useDispatch } from "react-redux";
+import { useUpdateExerciseMutation } from "../store/apis/exercisesApi";
+
 import { MdEdit, MdCancel } from "react-icons/md";
 
 function ExerciseName({ exercise }) {
-  const dispatch = useDispatch();
-
   const [showEdit, setShowEdit] = useState(false);
   const [newName, setNewName] = useState(exercise?.name);
 
+  const [updateExercise] = useUpdateExerciseMutation();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateExercise({ ...exercise, name: newName }));
+    updateExercise({ ...exercise, name: newName });
     setShowEdit(false);
   };
 
