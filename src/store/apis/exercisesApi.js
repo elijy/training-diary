@@ -5,10 +5,13 @@ export const exercisesApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3001" }),
   endpoints: (builder) => ({
     getExercises: builder.query({
-      query: () => {
+      query: (workoutId) => {
         return {
           url: "/exercises",
           method: "GET",
+          params: {
+            workoutId,
+          },
         };
       },
       providesTags: ["exercises"],
@@ -35,6 +38,7 @@ export const exercisesApi = createApi({
           method: "PUT",
           body: {
             name: exercise.name,
+            workoutId: exercise.workoutId,
           },
         };
       },

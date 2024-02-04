@@ -5,10 +5,10 @@ import { useDeleteExerciseMutation } from "../store/apis/exercisesApi";
 import ExerciseListItem from "./ExerciseListItem";
 import ExerciseSets from "./ExerciseSets";
 
-function ExerciseList() {
+function ExerciseList({ workoutId }) {
   const [selectedExercise, setSelectedExercise] = useState(null);
 
-  const { data: exercises } = useGetExercisesQuery();
+  const { data: exercises } = useGetExercisesQuery(workoutId);
   const [deleteExercise] = useDeleteExerciseMutation();
 
   return (

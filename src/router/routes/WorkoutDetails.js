@@ -14,10 +14,14 @@ function WorkoutDetails() {
     }
   }, [workoutId, createWorkout]);
 
+  const getWorkoutId = () => {
+    return workoutId === "new" ? results?.data?.id : workoutId;
+  };
+
   return (
     <div>
-      <ExerciseCreate workoutId={results?.data?.id} />
-      <ExerciseList />
+      <ExerciseCreate workoutId={getWorkoutId()} />
+      <ExerciseList workoutId={getWorkoutId()} />
     </div>
   );
 }
