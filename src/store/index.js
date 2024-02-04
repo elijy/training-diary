@@ -1,22 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { exercisesApi } from "./apis/exercisesApi";
 import { setsApi } from "./apis/setsApi";
+import { workoutsApi } from "./apis/workoutsApi";
 
 export default configureStore({
   reducer: {
     [exercisesApi.reducerPath]: exercisesApi.reducer,
     [setsApi.reducerPath]: setsApi.reducer,
+    [workoutsApi.reducerPath]: workoutsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .concat(exercisesApi.middleware)
-      .concat(setsApi.middleware),
+      .concat(setsApi.middleware)
+      .concat(workoutsApi.middleware),
 });
-
-export * from "./thunks/fetchExercises";
-export * from "./thunks/createExercise";
-export * from "./thunks/updateExercise";
-export * from "./thunks/deleteExercise";
-export * from "./thunks/fetchSets";
-export * from "./thunks/createSet";
-export * from "./thunks/deleteSet";

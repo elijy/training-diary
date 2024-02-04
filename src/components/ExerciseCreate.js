@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useCreateExerciseMutation } from "../store/apis/exercisesApi";
 
-function ExerciseCreate() {
+function ExerciseCreate({ workoutId }) {
   const [createExercise] = useCreateExerciseMutation();
   const [exercise, setExercise] = useState("");
 
   const handleCreateExercise = (e) => {
     e.preventDefault();
-    createExercise(exercise);
+    createExercise({ name: exercise, workoutId });
     setExercise("");
   };
 

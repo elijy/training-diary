@@ -20,7 +20,8 @@ export const exercisesApi = createApi({
           url: "/exercises",
           method: "POST",
           body: {
-            name: exercise,
+            name: exercise.name,
+            workoutId: exercise.workoutId,
           },
         };
       },
