@@ -1,11 +1,19 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 function App() {
+  const navigate = useNavigate();
+
   return (
     <div>
       <div className="hero is-primary">
         <div className="hero-body">
-          <h1 className="title">Training App</h1>
+          <h1
+            className="title"
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate("/workouts")}
+          >
+            Training App
+          </h1>
         </div>
       </div>
 
