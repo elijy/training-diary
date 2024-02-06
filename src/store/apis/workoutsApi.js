@@ -11,6 +11,7 @@ export const workoutsApi = createApi({
           method: "GET",
         };
       },
+      providesTags: ["workouts"],
     }),
 
     createWorkout: builder.mutation({
@@ -23,30 +24,18 @@ export const workoutsApi = createApi({
           },
         };
       },
+      invalidatesTags: ["workouts"],
     }),
 
-    // updateExercise: builder.mutation({
-    //   query: (exercise) => {
-    //     return {
-    //       url: `/exercises/${exercise.id}`,
-    //       method: "PUT",
-    //       body: {
-    //         name: exercise.name,
-    //       },
-    //     };
-    //   },
-    //   invalidatesTags: ["exercises"],
-    // }),
-
-    // deleteExercise: builder.mutation({
-    //   query: (id) => {
-    //     return {
-    //       url: `/exercises/${id}`,
-    //       method: "DELETE",
-    //     };
-    //   },
-    //   invalidatesTags: ["exercises"],
-    // }),
+    deleteWorkout: builder.mutation({
+      query: (id) => {
+        return {
+          url: `/workouts/${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["workouts"],
+    }),
   }),
 });
 
