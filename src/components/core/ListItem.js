@@ -6,7 +6,11 @@ function ListItem({ children, onClick, onDelete }) {
       <div className="p-2 is-flex-grow-1" onClick={onClick}>
         {children}
       </div>
-      <button onClick={onDelete} className="delete is-small mr-2"></button>
+      <button
+        data-testid="delete"
+        onClick={onDelete}
+        className="delete is-small mr-2"
+      ></button>
     </div>
   );
 }
