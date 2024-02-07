@@ -13,7 +13,7 @@ function ExerciseCreate({ workoutId }) {
 
   return (
     <div className="box">
-      <form onSubmit={handleCreateExercise}>
+      <form data-testid="form" onSubmit={handleCreateExercise}>
         <div className="field">
           <label className="label">Add Exercise</label>
           <div className="control">
