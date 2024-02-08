@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useUpdateExerciseMutation } from "../store/apis/exercisesApi";
 
 import { MdEdit, MdCancel } from "react-icons/md";
-import { Exercise } from "../models/Exercise";
+import { Exercise } from "../types/Exercise";
 
 function ExerciseName({ exercise }: { exercise: Exercise }): JSX.Element {
   const [showEdit, setShowEdit] = useState(false);

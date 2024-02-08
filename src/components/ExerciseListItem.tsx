@@ -1,4 +1,4 @@
-import { Exercise } from "../models/Exercise";
+import { Exercise } from "../types/Exercise";
 import ListItem from "./core/ListItem";
 
 interface Props {

@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Exercise } from "../../models/Exercise";
+import { Exercise } from "../../types/Exercise";
 
 export const exercisesApi = createApi({
   reducerPath: "exercises",

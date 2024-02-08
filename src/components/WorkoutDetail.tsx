@@ -1,7 +1,12 @@
 import { useGetExercisesQuery } from "../store/apis/exercisesApi";
 import { useNavigate } from "react-router-dom";
+import { Workout } from "../types/Workout";
 
-function WorkoutDetail({ workout }) {
+interface Props {
+  workout: Workout;
+}
+
+function WorkoutDetail({ workout }: Props): JSX.Element {
   const navigate = useNavigate();
   const { data: exercises } = useGetExercisesQuery(workout.id);
   const date = new Date(workout.date);
