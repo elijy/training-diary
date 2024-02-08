@@ -5,7 +5,11 @@ import { useDeleteExerciseMutation } from "../store/apis/exercisesApi";
 import ExerciseListItem from "./ExerciseListItem";
 import ExerciseSets from "./ExerciseSets";
 
-function ExerciseList({ workoutId }) {
+interface Props {
+  workoutId: string;
+}
+
+function ExerciseList({ workoutId }: Props): JSX.Element {
   const [selectedExercise, setSelectedExercise] = useState(null);
 
   const { data: exercises } = useGetExercisesQuery(workoutId);

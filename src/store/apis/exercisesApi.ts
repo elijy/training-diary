@@ -6,7 +6,7 @@ export const exercisesApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3001" }),
   tagTypes: ["exercises"],
   endpoints: (builder) => ({
-    getExercises: builder.query<Exercise[], number>({
+    getExercises: builder.query<Exercise[], string>({
       query: (workoutId) => {
         return {
           url: "/exercises",
@@ -47,7 +47,7 @@ export const exercisesApi = createApi({
       invalidatesTags: ["exercises"],
     }),
 
-    deleteExercise: builder.mutation<Exercise, number>({
+    deleteExercise: builder.mutation<Exercise, string>({
       query: (id) => {
         return {
           url: `/exercises/${id}`,
