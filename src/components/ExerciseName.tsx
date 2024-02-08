@@ -2,14 +2,15 @@ import { useState } from "react";
 import { useUpdateExerciseMutation } from "../store/apis/exercisesApi";
 
 import { MdEdit, MdCancel } from "react-icons/md";
+import { Exercise } from "../models/Exercise";
 
-function ExerciseName({ exercise }) {
+function ExerciseName({ exercise }: { exercise: Exercise }): JSX.Element {
   const [showEdit, setShowEdit] = useState(false);
-  const [newName, setNewName] = useState(exercise?.name);
+  const [newName, setNewName] = useState(exercise.name);
 
   const [updateExercise] = useUpdateExerciseMutation();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     updateExercise({ ...exercise, name: newName });
     setShowEdit(false);
@@ -28,7 +29,7 @@ function ExerciseName({ exercise }) {
           </form>
         </div>
       ) : (
-        <div>{exercise?.name}</div>
+        <div>{exercise.name}</div>
       )}
       {showEdit ? (
         <span>

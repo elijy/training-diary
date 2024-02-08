@@ -1,10 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { Exercise } from "../../models/Exercise";
 
 export const exercisesApi = createApi({
   reducerPath: "exercises",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3001" }),
+  tagTypes: ["exercises"],
   endpoints: (builder) => ({
-    getExercises: builder.query({
+    getExercises: builder.query<Exercise[], number>({
       query: (workoutId) => {
         return {
           url: "/exercises",
@@ -17,7 +19,7 @@ export const exercisesApi = createApi({
       providesTags: ["exercises"],
     }),
 
-    createExercise: builder.mutation({
+    createExercise: builder.mutation<Exercise, Exercise>({
       query: (exercise) => {
         return {
           url: "/exercises",
@@ -31,7 +33,7 @@ export const exercisesApi = createApi({
       invalidatesTags: ["exercises"],
     }),
 
-    updateExercise: builder.mutation({
+    updateExercise: builder.mutation<Exercise, Exercise>({
       query: (exercise) => {
         return {
           url: `/exercises/${exercise.id}`,
@@ -45,7 +47,7 @@ export const exercisesApi = createApi({
       invalidatesTags: ["exercises"],
     }),
 
-    deleteExercise: builder.mutation({
+    deleteExercise: builder.mutation<Exercise, number>({
       query: (id) => {
         return {
           url: `/exercises/${id}`,
