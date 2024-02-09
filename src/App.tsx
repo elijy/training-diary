@@ -1,6 +1,6 @@
 import { Outlet, useNavigate } from "react-router-dom";
 
-function App() {
+function App(): JSX.Element {
   const navigate = useNavigate();
 
   return (

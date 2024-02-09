@@ -1,11 +1,7 @@
 import { useState } from "react";
 import { useCreateExerciseMutation } from "../store/apis/exercisesApi";
 
-interface Props {
-  workoutId: string;
-}
-
-function ExerciseCreate({ workoutId }: Props): JSX.Element {
+function ExerciseCreate({ workoutId }: { workoutId: string }): JSX.Element {
   const [createExercise] = useCreateExerciseMutation();
   const [exercise, setExercise] = useState("");
 

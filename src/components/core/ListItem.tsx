@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import "./ListItem.css";
 
 interface Props {
-  onClick: () => void;
+  onClick?: () => void;
   onDelete: () => void;
   children: ReactNode;
 }

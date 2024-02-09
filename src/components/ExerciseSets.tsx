@@ -7,10 +7,11 @@ import {
 
 import ExerciseName from "./ExerciseName";
 import ListItem from "./core/ListItem";
+import { Exercise } from "../types/Exercise";
 
-function ExerciseSets({ exercise }) {
-  const [weight, setWeight] = useState(0);
-  const [reps, setReps] = useState(0);
+function ExerciseSets({ exercise }: { exercise: Exercise }): JSX.Element {
+  const [weight, setWeight] = useState("");
+  const [reps, setReps] = useState("");
 
   const { data: sets } = useGetSetsQuery(exercise.id);
   const [createSet] = useCreateSetMutation();

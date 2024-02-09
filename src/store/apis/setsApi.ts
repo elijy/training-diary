@@ -1,10 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { Set } from "../../types/Set";
 
 export const setsApi = createApi({
   reducerPath: "sets",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3001" }),
+  tagTypes: ["sets"],
   endpoints: (builder) => ({
-    getSets: builder.query({
+    getSets: builder.query<Set[], string>({
       query: (exerciseId) => {
         return {
           url: "/sets",
@@ -17,7 +19,7 @@ export const setsApi = createApi({
       providesTags: ["sets"],
     }),
 
-    createSet: builder.mutation({
+    createSet: builder.mutation<Set, Set>({
       query: ({ exerciseId, weight, reps }) => {
         return {
           url: "/sets",
@@ -32,7 +34,7 @@ export const setsApi = createApi({
       invalidatesTags: ["sets"],
     }),
 
-    deleteSet: builder.mutation({
+    deleteSet: builder.mutation<Set, string>({
       query: (id) => {
         return {
           url: `/sets/${id}`,
