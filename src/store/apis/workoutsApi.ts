@@ -41,4 +41,8 @@ export const workoutsApi = createApi({
   }),
 });
 
-export const { useGetWorkoutsQuery, useCreateWorkoutMutation } = workoutsApi;
+export const {
+  useGetWorkoutsQuery,
+  useCreateWorkoutMutation,
+  useDeleteWorkoutMutation,
+} = workoutsApi;
