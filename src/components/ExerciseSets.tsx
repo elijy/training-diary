@@ -23,7 +23,7 @@ function ExerciseSets({ exercise }: { exercise: Exercise }): JSX.Element {
     createSet({ exerciseId: exercise.id, weight: weightNum, reps: repsNum });
   };
 
-  const handleDeleteSet = (id) => {
+  const handleDeleteSet = (id: string) => {
     deleteSet(id);
   };
 
