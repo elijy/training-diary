@@ -1,13 +1,18 @@
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useGetExercisesQuery } from "../store/apis/exercisesApi";
 import { useDeleteExerciseMutation } from "../store/apis/exercisesApi";
+import { setSelectedExercise } from "../store/slices/selectedExerciseSlice";
 
 import ExerciseListItem from "./ExerciseListItem";
 import ExerciseSets from "./ExerciseSets";
+import { Exercise } from "../types/Exercise";
 
 function ExerciseList({ workoutId }: { workoutId: string }): JSX.Element {
-  const [selectedExercise, setSelectedExercise] = useState(null);
-
+  const dispatch = useDispatch();
+  const selectedExercise = useSelector(
+    (state: { selectedExercise: { selectedExercise: Exercise } }) =>
+      state.selectedExercise.selectedExercise
+  );
   const { data: exercises } = useGetExercisesQuery(workoutId);
   const [deleteExercise] = useDeleteExerciseMutation();
 
@@ -22,7 +27,9 @@ function ExerciseList({ workoutId }: { workoutId: string }): JSX.Element {
                 <ExerciseListItem
                   key={exercise.id}
                   exercise={exercise}
-                  onClick={(exercise) => setSelectedExercise(exercise)}
+                  onClick={(exercise) =>
+                    dispatch(setSelectedExercise(exercise))
+                  }
                   onDelete={(exercise) => {
                     deleteExercise(exercise.id);
                     setSelectedExercise(null);
