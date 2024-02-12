@@ -4,7 +4,7 @@ import { Exercise } from "../../types/Exercise";
 export const exercisesApi = createApi({
   reducerPath: "exercises",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3001" }),
-  tagTypes: ["exercises"],
+  tagTypes: ["Exercise"],
   endpoints: (builder) => ({
     getExercises: builder.query<Exercise[], string>({
       query: (workoutId) => {
@@ -16,7 +16,14 @@ export const exercisesApi = createApi({
           },
         };
       },
-      providesTags: ["exercises"],
+      providesTags: (results = []) => {
+        return [
+          "Exercise",
+          ...results.map((item) => {
+            return { type: "Exercise" as const, id: item.id };
+          }),
+        ];
+      },
     }),
 
     createExercise: builder.mutation<Exercise, Exercise>({
@@ -30,7 +37,9 @@ export const exercisesApi = createApi({
           },
         };
       },
-      invalidatesTags: ["exercises"],
+      invalidatesTags: (result, error, arg) => [
+        { type: "Exercise", id: arg.id },
+      ],
     }),
 
     updateExercise: builder.mutation<Exercise, Exercise>({
@@ -44,7 +53,7 @@ export const exercisesApi = createApi({
           },
         };
       },
-      invalidatesTags: ["exercises"],
+      invalidatesTags: ["Exercise"],
     }),
 
     deleteExercise: builder.mutation<Exercise, string>({
@@ -54,7 +63,7 @@ export const exercisesApi = createApi({
           method: "DELETE",
         };
       },
-      invalidatesTags: ["exercises"],
+      invalidatesTags: ["Exercise"],
     }),
   }),
 });
