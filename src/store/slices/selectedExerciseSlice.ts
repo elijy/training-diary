@@ -18,6 +18,12 @@ const exercisesSlice = createSlice({
         state.selectedExercise = action.payload;
       }
     );
+    builder.addMatcher(
+      exercisesApi.endpoints.deleteExercise.matchFulfilled,
+      (state, action) => {
+        state.selectedExercise = null;
+      }
+    );
   },
 });
 
