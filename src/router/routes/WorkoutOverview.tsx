@@ -1,11 +1,25 @@
+import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetWorkoutsQuery } from "../../store/apis/workoutsApi";
+
+import { Workout } from "../../types/Workout";
 
 import WorkoutDetail from "../../components/WorkoutDetail";
 
 function WorkoutOverview() {
   const navigate = useNavigate();
-  const { data: workouts } = useGetWorkoutsQuery();
+  const { data: workouts, isSuccess } = useGetWorkoutsQuery();
+
+  const sortedWorkouts = useMemo(() => {
+    let sortedWorkouts: Workout[] = [];
+    if (isSuccess) {
+      sortedWorkouts = workouts?.slice();
+      sortedWorkouts.sort((a, b) => {
+        return new Date(b.date).valueOf() - new Date(a.date).valueOf();
+      });
+    }
+    return sortedWorkouts;
+  }, [workouts, isSuccess]);
 
   const handleClick = () => {
     navigate("/workouts/new");
@@ -23,7 +37,7 @@ function WorkoutOverview() {
       </div>
       <div className="block">
         <div className="columns is-multiline">
-          {workouts?.map((workout) => {
+          {sortedWorkouts?.map((workout) => {
             return (
               <div className="column is-one-quarter" key={workout.id}>
                 <WorkoutDetail workout={workout} />
