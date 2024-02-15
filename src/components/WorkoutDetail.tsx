@@ -14,7 +14,7 @@ function WorkoutDetail({ workout }: { workout: Workout }): JSX.Element {
   };
 
   return (
-    <div className="card">
+    <div className="card" style={{ height: 168 }}>
       <div className="card-header">
         <div className="card-header-title is-justify-content-space-between">
           <div
