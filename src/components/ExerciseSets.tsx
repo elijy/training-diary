@@ -48,6 +48,7 @@ function ExerciseSets({ exercise }: { exercise: Exercise }): JSX.Element {
             onChange={(e) => setWeight(e.target.value)}
             type="number"
             className="input"
+            min={0}
           />
         </div>
 
@@ -58,6 +59,7 @@ function ExerciseSets({ exercise }: { exercise: Exercise }): JSX.Element {
             onChange={(e) => setReps(e.target.value)}
             type="number"
             className="input"
+            min={0}
           />
         </div>
 
