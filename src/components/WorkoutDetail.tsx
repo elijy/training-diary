@@ -2,6 +2,7 @@ import { useGetExercisesQuery } from "../store/apis/exercisesApi";
 import { useNavigate } from "react-router-dom";
 import { Workout } from "../types/Workout";
 import { useDeleteWorkoutMutation } from "../store/apis/workoutsApi";
+import "./WorkoutDetail.css";
 
 function WorkoutDetail({ workout }: { workout: Workout }): JSX.Element {
   const navigate = useNavigate();
@@ -15,14 +16,10 @@ function WorkoutDetail({ workout }: { workout: Workout }): JSX.Element {
   };
 
   return (
-    <div
-      className="card"
-      style={{ height: 168 }}
-      onClick={() => navigate(`/workouts/${workout.id}`)}
-    >
+    <div className="card" onClick={() => navigate(`/workouts/${workout.id}`)}>
       <div className="card-header">
         <div className="card-header-title is-justify-content-space-between">
-          <div style={{ cursor: "pointer" }}>{date.toDateString()}</div>
+          {date.toDateString()}
           <button
             data-testid="delete"
             onClick={handleDelete}
