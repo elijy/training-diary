@@ -1,4 +1,10 @@
 .card {
   height: 168px;
   cursor: pointer;
+  transition: all 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
 }
