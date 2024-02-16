@@ -9,23 +9,23 @@ function WorkoutDetail({ workout }: { workout: Workout }): JSX.Element {
   const [deleteWorkout] = useDeleteWorkoutMutation();
   const date = new Date(workout.date);
 
-  const handleDelete = (id: string) => {
-    deleteWorkout(id);
+  const handleDelete = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    deleteWorkout(workout.id);
   };
 
   return (
-    <div className="card" style={{ height: 168 }}>
+    <div
+      className="card"
+      style={{ height: 168 }}
+      onClick={() => navigate(`/workouts/${workout.id}`)}
+    >
       <div className="card-header">
         <div className="card-header-title is-justify-content-space-between">
-          <div
-            style={{ cursor: "pointer" }}
-            onClick={() => navigate(`/workouts/${workout.id}`)}
-          >
-            {date.toDateString()}
-          </div>
+          <div style={{ cursor: "pointer" }}>{date.toDateString()}</div>
           <button
             data-testid="delete"
-            onClick={() => handleDelete(workout.id)}
+            onClick={handleDelete}
             className="delete is-small"
           ></button>
         </div>
