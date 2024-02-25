@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Set } from "../../types/Set";
+import { baseUrl } from "./config";
 
 export const setsApi = createApi({
   reducerPath: "sets",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3001" }),
+  baseQuery: fetchBaseQuery({ baseUrl }),
   tagTypes: ["sets"],
   endpoints: (builder) => ({
     getSets: builder.query<Set[], string>({

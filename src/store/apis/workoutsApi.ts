@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Workout } from "../../types/Workout";
+import { baseUrl } from "./config";
 
 export const workoutsApi = createApi({
   reducerPath: "workouts",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3001" }),
+  baseQuery: fetchBaseQuery({ baseUrl }),
   tagTypes: ["workouts"],
   endpoints: (builder) => ({
     getWorkouts: builder.query<Workout[], void>({
