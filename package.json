@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.9.5",
     "@reduxjs/toolkit": "^2.1.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
@@ -14,6 +15,7 @@
     "@types/react-redux": "^7.1.33",
     "axios": "^1.6.5",
     "bulma": "^0.9.4",
+    "graphql": "^16.8.1",
     "json-server": "^1.0.0-alpha.21",
     "msw": "^2.2.0",
     "react": "^18.2.0",
