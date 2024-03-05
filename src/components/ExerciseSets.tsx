@@ -1,19 +1,24 @@
 import { useState } from "react";
 import {
-  useGetSetsQuery,
   useCreateSetMutation,
   useDeleteSetMutation,
 } from "../store/apis/setsApi";
+import { useQuery } from "@apollo/client";
+
+import { GET_SETS } from "../queries/getSets";
 
 import ExerciseName from "./ExerciseName";
 import ListItem from "./core/ListItem";
 import { Exercise } from "../types/Exercise";
+import { Set } from "../types/Set";
 
 function ExerciseSets({ exercise }: { exercise: Exercise }): JSX.Element {
   const [weight, setWeight] = useState("");
   const [reps, setReps] = useState("");
 
-  const { data: sets } = useGetSetsQuery(exercise.id);
+  const { data }: { data: { sets: Set[] } } = useQuery(GET_SETS, {
+    variables: { exerciseId: exercise.id },
+  });
   const [createSet] = useCreateSetMutation();
   const [deleteSet] = useDeleteSetMutation();
 
@@ -30,7 +35,7 @@ function ExerciseSets({ exercise }: { exercise: Exercise }): JSX.Element {
   return (
     <div className="box">
       <ExerciseName key={exercise.id} exercise={exercise} />
-      {sets?.map((set, index) => {
+      {data?.sets?.map((set, index) => {
         return (
           <ListItem key={set.id} onDelete={() => handleDeleteSet(set.id)}>
             <div>
