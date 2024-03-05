@@ -1,21 +1,24 @@
 import ExerciseList from "../../components/ExerciseList";
 import ExerciseCreate from "../../components/ExerciseCreate";
-import { useCreateWorkoutMutation } from "../../store/apis/workoutsApi";
+
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+
+import { ADD_WORKOUT } from "../../queries/addWorkout";
 
 function WorkoutDetails() {
   const { workoutId } = useParams();
-  const [createWorkout, results] = useCreateWorkoutMutation();
+  const [createWorkout, { data }] = useMutation(ADD_WORKOUT);
 
   useEffect(() => {
     if (workoutId === "new") {
-      createWorkout(new Date());
+      createWorkout({ variables: { date: new Date() } });
     }
   }, [workoutId, createWorkout]);
 
   const getWorkoutId = () => {
-    return workoutId === "new" ? results?.data?.id : workoutId;
+    return workoutId === "new" ? data?.id : workoutId;
   };
 
   return (
