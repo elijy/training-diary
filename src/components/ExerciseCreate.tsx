@@ -1,13 +1,16 @@
 import { useState } from "react";
-import { useCreateExerciseMutation } from "../store/apis/exercisesApi";
+import { useMutation } from "@apollo/client";
+
+import { ADD_EXERCISE } from "../queries/addExercise";
 
 function ExerciseCreate({ workoutId }: { workoutId: string }): JSX.Element {
-  const [createExercise] = useCreateExerciseMutation();
+  const [createExercise] = useMutation(ADD_EXERCISE);
+
   const [exercise, setExercise] = useState("");
 
   const handleCreateExercise = (e: React.FormEvent) => {
     e.preventDefault();
-    createExercise({ name: exercise, workoutId });
+    createExercise({ variables: { name: exercise, workoutId } });
     setExercise("");
   };
 
