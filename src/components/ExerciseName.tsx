@@ -1,18 +1,21 @@
 import { useState } from "react";
-import { useUpdateExerciseMutation } from "../store/apis/exercisesApi";
+import { useMutation } from "@apollo/client";
 
 import { MdEdit, MdCancel } from "react-icons/md";
+
 import { Exercise } from "../types/Exercise";
+
+import { EDIT_EXERCISE } from "../queries/editExercise";
 
 function ExerciseName({ exercise }: { exercise: Exercise }): JSX.Element {
   const [showEdit, setShowEdit] = useState(false);
   const [newName, setNewName] = useState(exercise.name);
 
-  const [updateExercise] = useUpdateExerciseMutation();
+  const [updateExercise] = useMutation(EDIT_EXERCISE);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    updateExercise({ ...exercise, name: newName });
+    updateExercise({ variables: { ...exercise, name: newName } });
     setShowEdit(false);
   };
 
