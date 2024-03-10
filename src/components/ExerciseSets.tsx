@@ -1,14 +1,14 @@
 import { useState } from "react";
-import {
-  useCreateSetMutation,
-  useDeleteSetMutation,
-} from "../store/apis/setsApi";
+import { useDeleteSetMutation } from "../store/apis/setsApi";
 import { useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 
 import { GET_SETS } from "../queries/getSets";
+import { ADD_SET } from "../queries/addSet";
 
 import ExerciseName from "./ExerciseName";
 import ListItem from "./core/ListItem";
+
 import { Exercise } from "../types/Exercise";
 import { Set } from "../types/Set";
 
@@ -19,13 +19,16 @@ function ExerciseSets({ exercise }: { exercise: Exercise }): JSX.Element {
   const { data }: { data: { sets: Set[] } } = useQuery(GET_SETS, {
     variables: { exerciseId: exercise.id },
   });
-  const [createSet] = useCreateSetMutation();
+
+  const [createSet] = useMutation(ADD_SET);
   const [deleteSet] = useDeleteSetMutation();
 
   const handleAddSet = () => {
     const weightNum = parseInt(weight) || 0;
     const repsNum = parseInt(reps) || 0;
-    createSet({ exerciseId: exercise.id, weight: weightNum, reps: repsNum });
+    createSet({
+      variables: { exerciseId: exercise.id, weight: weightNum, reps: repsNum },
+    });
   };
 
   const handleDeleteSet = (id: string) => {
