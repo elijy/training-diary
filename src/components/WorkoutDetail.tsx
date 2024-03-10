@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 
 import { Workout } from "../types/Workout";
 import { Exercise } from "../types/Exercise";
 
-import { useDeleteWorkoutMutation } from "../store/apis/workoutsApi";
-
 import { GET_EXERCISES } from "../queries/getExercises";
+import { DELETE_EXERCISE } from "../queries/deleteExercise";
 
 import "./WorkoutDetail.css";
 
@@ -18,12 +18,12 @@ function WorkoutDetail({ workout }: { workout: Workout }): JSX.Element {
     { variables: { workoutId: workout.id } }
   );
 
-  const [deleteWorkout] = useDeleteWorkoutMutation();
+  const [deleteWorkout] = useMutation(DELETE_EXERCISE);
   const date = new Date(workout.date);
 
   const handleDelete = (e: React.MouseEvent) => {
     e.stopPropagation();
-    deleteWorkout(workout.id);
+    deleteWorkout({ variables: { workoutId: workout.id } });
   };
 
   return (
