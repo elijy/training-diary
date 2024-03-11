@@ -6,7 +6,7 @@ import { Workout } from "../types/Workout";
 import { Exercise } from "../types/Exercise";
 
 import { GET_EXERCISES } from "../queries/getExercises";
-import { DELETE_EXERCISE } from "../queries/deleteExercise";
+import { DELETE_WORKOUT } from "../queries/deleteWorkout";
 
 import "./WorkoutDetail.css";
 
@@ -18,12 +18,12 @@ function WorkoutDetail({ workout }: { workout: Workout }): JSX.Element {
     { variables: { workoutId: workout.id } }
   );
 
-  const [deleteWorkout] = useMutation(DELETE_EXERCISE);
+  const [deleteWorkout] = useMutation(DELETE_WORKOUT);
   const date = new Date(workout.date);
 
   const handleDelete = (e: React.MouseEvent) => {
     e.stopPropagation();
-    deleteWorkout({ variables: { workoutId: workout.id } });
+    deleteWorkout({ variables: { id: workout.id } });
   };
 
   return (
