@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useDeleteSetMutation } from "../store/apis/setsApi";
 import { useQuery } from "@apollo/client";
 import { useMutation } from "@apollo/client";
 
 import { GET_SETS } from "../queries/getSets";
 import { ADD_SET } from "../queries/addSet";
+import { DELETE_SET } from "../queries/deleteSet";
 
 import ExerciseName from "./ExerciseName";
 import ListItem from "./core/ListItem";
@@ -21,7 +21,7 @@ function ExerciseSets({ exercise }: { exercise: Exercise }): JSX.Element {
   });
 
   const [createSet] = useMutation(ADD_SET);
-  const [deleteSet] = useDeleteSetMutation();
+  const [deleteSet] = useMutation(DELETE_SET);
 
   const handleAddSet = () => {
     const weightNum = parseInt(weight) || 0;
@@ -32,7 +32,7 @@ function ExerciseSets({ exercise }: { exercise: Exercise }): JSX.Element {
   };
 
   const handleDeleteSet = (id: string) => {
-    deleteSet(id);
+    deleteSet({ variables: { id } });
   };
 
   return (
