@@ -1,10 +1,15 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useGetExercisesQuery } from "../store/apis/exercisesApi";
-import { useDeleteExerciseMutation } from "../store/apis/exercisesApi";
 import { setSelectedExercise } from "../store/slices/selectedExerciseSlice";
+
+import { useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
+
+import { GET_EXERCISES } from "../queries/getExercises";
+import { DELETE_EXERCISE } from "../queries/deleteExercise";
 
 import ExerciseListItem from "./ExerciseListItem";
 import ExerciseSets from "./ExerciseSets";
+
 import { Exercise } from "../types/Exercise";
 
 function ExerciseList({ workoutId }: { workoutId: string }): JSX.Element {
@@ -13,8 +18,11 @@ function ExerciseList({ workoutId }: { workoutId: string }): JSX.Element {
     (state: { selectedExercise: { selectedExercise: Exercise } }) =>
       state.selectedExercise.selectedExercise
   );
-  const { data: exercises } = useGetExercisesQuery(workoutId);
-  const [deleteExercise] = useDeleteExerciseMutation();
+  const { data }: { data: { exercises: Exercise[] } } = useQuery(
+    GET_EXERCISES,
+    { variables: { workoutId } }
+  );
+  const [deleteExercise] = useMutation(DELETE_EXERCISE);
 
   return (
     <div className="columns">
@@ -22,7 +30,7 @@ function ExerciseList({ workoutId }: { workoutId: string }): JSX.Element {
         <div className="box">
           <div className="title is-3">Workout</div>
           <div>
-            {exercises?.map((exercise) => {
+            {data?.exercises?.map((exercise) => {
               return (
                 <ExerciseListItem
                   key={exercise.id}
@@ -31,7 +39,7 @@ function ExerciseList({ workoutId }: { workoutId: string }): JSX.Element {
                     dispatch(setSelectedExercise(exercise))
                   }
                   onDelete={(exercise) => {
-                    deleteExercise(exercise.id);
+                    deleteExercise({ variables: { id: exercise.id } });
                     setSelectedExercise(null);
                   }}
                 />
