@@ -6,10 +6,13 @@ import { useParams } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 
 import { ADD_WORKOUT } from "../../queries/addWorkout";
+import { GET_WORKOUTS } from "../../queries/getWorkouts";
 
 function WorkoutDetails() {
   const { workoutId } = useParams();
-  const [createWorkout, { data }] = useMutation(ADD_WORKOUT);
+  const [createWorkout, { data }] = useMutation(ADD_WORKOUT, {
+    refetchQueries: [{ query: GET_WORKOUTS }],
+  });
 
   useEffect(() => {
     if (workoutId === "new") {
