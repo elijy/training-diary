@@ -5,9 +5,7 @@ import { useMutation } from "@apollo/client";
 import { Workout } from "../types/Workout";
 import { Exercise } from "../types/Exercise";
 
-import { GET_EXERCISES } from "../queries/getExercises";
-import { DELETE_WORKOUT } from "../queries/deleteWorkout";
-import { GET_WORKOUTS } from "../queries/getWorkouts";
+import { GET_WORKOUTS, GET_EXERCISES, DELETE_WORKOUT } from "../queries";
 
 import "./WorkoutDetail.css";
 
