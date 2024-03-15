@@ -7,6 +7,7 @@ import { Exercise } from "../types/Exercise";
 
 import { GET_EXERCISES } from "../queries/getExercises";
 import { DELETE_WORKOUT } from "../queries/deleteWorkout";
+import { GET_WORKOUTS } from "../queries/getWorkouts";
 
 import "./WorkoutDetail.css";
 
@@ -18,7 +19,9 @@ function WorkoutDetail({ workout }: { workout: Workout }): JSX.Element {
     { variables: { workoutId: workout.id } }
   );
 
-  const [deleteWorkout] = useMutation(DELETE_WORKOUT);
+  const [deleteWorkout] = useMutation(DELETE_WORKOUT, {
+    refetchQueries: [{ query: GET_WORKOUTS }],
+  });
   const date = new Date(workout.date);
 
   const handleDelete = (e: React.MouseEvent) => {
