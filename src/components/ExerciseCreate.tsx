@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 
-import { ADD_EXERCISE } from "../queries/addExercise";
+import { ADD_EXERCISE, GET_EXERCISES } from "../queries";
 
 function ExerciseCreate({ workoutId }: { workoutId: string }): JSX.Element {
-  const [createExercise] = useMutation(ADD_EXERCISE);
+  const [createExercise] = useMutation(ADD_EXERCISE, {
+    refetchQueries: [{ query: GET_EXERCISES }],
+  });
 
   const [exercise, setExercise] = useState("");
 
