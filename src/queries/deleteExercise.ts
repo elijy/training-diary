@@ -4,6 +4,7 @@ export const DELETE_EXERCISE = gql`
   mutation deleteExercise($id: String!) {
     deleteExercise(id: $id) {
       id
+      name
     }
   }
 `;
