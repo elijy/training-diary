@@ -4,8 +4,7 @@ import { setSelectedExercise } from "../store/slices/selectedExerciseSlice";
 import { useQuery } from "@apollo/client";
 import { useMutation } from "@apollo/client";
 
-import { GET_EXERCISES } from "../queries/getExercises";
-import { DELETE_EXERCISE } from "../queries/deleteExercise";
+import { GET_EXERCISES, DELETE_EXERCISE } from "../queries";
 
 import ExerciseListItem from "./ExerciseListItem";
 import ExerciseSets from "./ExerciseSets";
@@ -22,7 +21,9 @@ function ExerciseList({ workoutId }: { workoutId: string }): JSX.Element {
     GET_EXERCISES,
     { variables: { workoutId } }
   );
-  const [deleteExercise] = useMutation(DELETE_EXERCISE);
+  const [deleteExercise] = useMutation(DELETE_EXERCISE, {
+    refetchQueries: [{ query: GET_EXERCISES }],
+  });
 
   return (
     <div className="columns">
