@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 
@@ -14,20 +13,14 @@ function WorkoutOverview() {
   const { loading, data }: { loading: Boolean; data: { workouts: Workout[] } } =
     useQuery(GET_WORKOUTS);
 
-  const sortedWorkouts = useMemo(() => {
-    let sortedWorkouts: Workout[] = [];
-    if (!loading) {
-      sortedWorkouts = data?.workouts?.slice();
-      sortedWorkouts.sort((a, b) => {
-        return new Date(b.date).valueOf() - new Date(a.date).valueOf();
-      });
-    }
-    return sortedWorkouts;
-  }, [data, loading]);
-
   const handleClick = () => {
     navigate("/workouts/new");
   };
+
+  // TODO: Add skeleton loading component
+  if (loading) {
+    return <div></div>;
+  }
 
   return (
     <div>
@@ -41,7 +34,7 @@ function WorkoutOverview() {
       </div>
       <div className="block">
         <div className="columns is-multiline">
-          {sortedWorkouts?.map((workout) => {
+          {data?.workouts?.map((workout) => {
             return (
               <div className="column is-one-quarter" key={workout.id}>
                 <WorkoutDetail workout={workout} />
