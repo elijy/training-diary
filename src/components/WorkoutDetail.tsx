@@ -7,44 +7,40 @@ import { Exercise } from "../types/Exercise";
 
 import { GET_WORKOUTS, GET_EXERCISES, DELETE_WORKOUT } from "../queries";
 
+import Card from "./core/Card";
+
 import "./WorkoutDetail.css";
 
 function WorkoutDetail({ workout }: { workout: Workout }): JSX.Element {
   const navigate = useNavigate();
 
-  const { data }: { data: { exercises: Exercise[] } } = useQuery(
-    GET_EXERCISES,
-    { variables: { workoutId: workout.id } }
-  );
+  // const { data }: { data: { exercises: Exercise[] } } = useQuery(
+  //   GET_EXERCISES,
+  //   { variables: { workoutId: workout.id } }
+  // );
 
   const [deleteWorkout] = useMutation(DELETE_WORKOUT, {
     refetchQueries: [{ query: GET_WORKOUTS }],
   });
   const date = new Date(workout.date);
 
-  const handleDelete = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handleDelete = () => {
     deleteWorkout({ variables: { id: workout.id } });
   };
 
-  return (
-    <div className="card" onClick={() => navigate(`/workouts/${workout.id}`)}>
-      <div className="card-header">
-        <div className="card-header-title is-justify-content-space-between">
-          {date.toDateString()}
-          <button
-            data-testid="delete"
-            onClick={handleDelete}
-            className="delete is-small"
-          ></button>
-        </div>
-      </div>
-      <div className="card-content">
-        {data?.exercises?.slice(0, 3).map((exercise) => (
+  const workoutExercises = () => {
+    return null;
+    /* {data?.exercises?.slice(0, 3).map((exercise) => (
           <div key={exercise.id}>{exercise.name}</div>
-        ))}
-      </div>
-    </div>
+        ))} */
+  };
+  return (
+    <Card
+      onClick={() => navigate(`/workouts/${workout.id}`)}
+      onDelete={handleDelete}
+      header={date.toDateString()}
+      content={workoutExercises()}
+    />
   );
 }
 
