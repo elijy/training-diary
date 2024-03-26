@@ -14,10 +14,15 @@ import "./WorkoutDetail.css";
 function WorkoutDetail({ workout }: { workout: Workout }): JSX.Element {
   const navigate = useNavigate();
 
-  // const { data }: { data: { exercises: Exercise[] } } = useQuery(
-  //   GET_EXERCISES,
-  //   { variables: { workoutId: workout.id } }
-  // );
+  const {
+    loading,
+    data,
+  }: { loading: Boolean; data: { exercises: Exercise[] } } = useQuery(
+    GET_EXERCISES,
+    { variables: { workoutId: workout.id } }
+  );
+
+  console.log(data);
 
   const [deleteWorkout] = useMutation(DELETE_WORKOUT, {
     refetchQueries: [{ query: GET_WORKOUTS }],
@@ -29,11 +34,16 @@ function WorkoutDetail({ workout }: { workout: Workout }): JSX.Element {
   };
 
   const workoutExercises = () => {
-    return null;
-    /* {data?.exercises?.slice(0, 3).map((exercise) => (
-          <div key={exercise.id}>{exercise.name}</div>
-        ))} */
+    return data?.exercises
+      ?.slice(0, 3)
+      .map(({ id, name }) => <div key={id}>{name}</div>);
   };
+
+  // TODO: Replace this
+  if (loading) {
+    return <div>loading...</div>;
+  }
+
   return (
     <Card
       onClick={() => navigate(`/workouts/${workout.id}`)}
