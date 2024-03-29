@@ -22,8 +22,6 @@ function WorkoutDetail({ workout }: { workout: Workout }): JSX.Element {
     { variables: { workoutId: workout.id } }
   );
 
-  console.log(data);
-
   const [deleteWorkout] = useMutation(DELETE_WORKOUT, {
     refetchQueries: [{ query: GET_WORKOUTS }],
   });
