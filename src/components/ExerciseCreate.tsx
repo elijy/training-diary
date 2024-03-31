@@ -5,7 +5,9 @@ import { ADD_EXERCISE, GET_EXERCISES } from "../queries";
 
 function ExerciseCreate({ workoutId }: { workoutId: string }): JSX.Element {
   const [createExercise] = useMutation(ADD_EXERCISE, {
-    refetchQueries: [{ query: GET_EXERCISES }],
+    refetchQueries: [
+      { query: GET_EXERCISES, variables: { workoutId: Number(workoutId) } },
+    ],
   });
 
   const [exercise, setExercise] = useState("");
