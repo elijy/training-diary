@@ -12,7 +12,9 @@ function ExerciseCreate({ workoutId }: { workoutId: string }): JSX.Element {
 
   const handleCreateExercise = (e: React.FormEvent) => {
     e.preventDefault();
-    createExercise({ variables: { name: exercise, workoutId } });
+    createExercise({
+      variables: { name: exercise, workoutId: Number(workoutId) },
+    });
     setExercise("");
   };
 
