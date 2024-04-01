@@ -26,7 +26,9 @@ function ExerciseList({ workoutId }: { workoutId: string }): JSX.Element {
     { variables: { workoutId: Number(workoutId) } }
   );
   const [deleteExercise] = useMutation(DELETE_EXERCISE, {
-    refetchQueries: [{ query: GET_EXERCISES }],
+    refetchQueries: [
+      { query: GET_EXERCISES, variables: { workoutId: Number(workoutId) } },
+    ],
   });
 
   if (loading) {
@@ -48,7 +50,7 @@ function ExerciseList({ workoutId }: { workoutId: string }): JSX.Element {
                     dispatch(setSelectedExercise(exercise))
                   }
                   onDelete={(exercise) => {
-                    deleteExercise({ variables: { id: exercise.id } });
+                    deleteExercise({ variables: { id: Number(exercise.id) } });
                     setSelectedExercise(null);
                   }}
                 />
