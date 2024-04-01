@@ -17,13 +17,21 @@ function ExerciseList({ workoutId }: { workoutId: string }): JSX.Element {
     (state: { selectedExercise: { selectedExercise: Exercise } }) =>
       state.selectedExercise.selectedExercise
   );
-  const { data }: { data: { exercises: Exercise[] } } = useQuery(
+
+  const {
+    loading,
+    data,
+  }: { loading: Boolean; data: { exercises: Exercise[] } } = useQuery(
     GET_EXERCISES,
-    { variables: { workoutId } }
+    { variables: { workoutId: Number(workoutId) } }
   );
   const [deleteExercise] = useMutation(DELETE_EXERCISE, {
     refetchQueries: [{ query: GET_EXERCISES }],
   });
+
+  if (loading) {
+    return <div>loading...</div>;
+  }
 
   return (
     <div className="columns">
