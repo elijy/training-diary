@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { useMutation } from "@apollo/client";
 
-import { GET_SETS } from "../queries/getSets";
+import { GET_SETS } from "../queries";
 import { ADD_SET } from "../queries/addSet";
 import { DELETE_SET } from "../queries/deleteSet";
 
@@ -16,9 +16,10 @@ function ExerciseSets({ exercise }: { exercise: Exercise }): JSX.Element {
   const [weight, setWeight] = useState("");
   const [reps, setReps] = useState("");
 
-  const { data }: { data: { sets: Set[] } } = useQuery(GET_SETS, {
-    variables: { exerciseId: exercise.id },
-  });
+  const { loading, data }: { loading: Boolean; data: { sets: Set[] } } =
+    useQuery(GET_SETS, {
+      variables: { exerciseId: exercise.id },
+    });
 
   const [createSet] = useMutation(ADD_SET);
   const [deleteSet] = useMutation(DELETE_SET);
@@ -34,6 +35,10 @@ function ExerciseSets({ exercise }: { exercise: Exercise }): JSX.Element {
   const handleDeleteSet = (id: string) => {
     deleteSet({ variables: { id } });
   };
+
+  if (loading) {
+    return <div>loading...</div>;
+  }
 
   return (
     <div className="box">
