@@ -43,7 +43,7 @@ function ExerciseList({ workoutId }: { workoutId: string }): JSX.Element {
                   exercise={exercise}
                   onClick={(exercise) => setSelectedExercise(exercise)}
                   onDelete={(exercise) => {
-                    deleteExercise({ variables: { id: Number(exercise.id) } });
+                    deleteExercise({ variables: { id: exercise.id } });
                     setSelectedExercise(null);
                   }}
                 />
