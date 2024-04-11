@@ -2,8 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { useMutation } from "@apollo/client";
 
-import { GET_SETS, ADD_SET } from "../queries";
-import { DELETE_SET } from "../queries/deleteSet";
+import { GET_SETS, ADD_SET, DELETE_SET } from "../queries";
 
 import ExerciseName from "./ExerciseName";
 import ListItem from "./core/ListItem";
@@ -25,7 +24,11 @@ function ExerciseSets({ exercise }: { exercise: Exercise }): JSX.Element {
       { query: GET_SETS, variables: { exerciseId: exercise.id } },
     ],
   });
-  const [deleteSet] = useMutation(DELETE_SET);
+  const [deleteSet] = useMutation(DELETE_SET, {
+    refetchQueries: [
+      { query: GET_SETS, variables: { exerciseId: exercise.id } },
+    ],
+  });
 
   const handleAddSet = () => {
     const weightNum = parseInt(weight) || 0;
