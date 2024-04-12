@@ -5,7 +5,7 @@ import { MdEdit, MdCancel } from "react-icons/md";
 
 import { Exercise } from "../types/Exercise";
 
-import { EDIT_EXERCISE } from "../queries/editExercise";
+import { EDIT_EXERCISE } from "../queries";
 
 function ExerciseName({ exercise }: { exercise: Exercise }): JSX.Element {
   const [showEdit, setShowEdit] = useState(false);
@@ -15,7 +15,7 @@ function ExerciseName({ exercise }: { exercise: Exercise }): JSX.Element {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    updateExercise({ variables: { ...exercise, name: newName } });
+    updateExercise({ variables: { id: exercise.id, name: newName } });
     setShowEdit(false);
   };
 
