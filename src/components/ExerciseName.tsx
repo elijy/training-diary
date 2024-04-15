@@ -1,17 +1,24 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
+import { useParams } from "react-router-dom";
 
 import { MdEdit, MdCancel } from "react-icons/md";
 
 import { Exercise } from "../types/Exercise";
 
-import { EDIT_EXERCISE } from "../queries";
+import { EDIT_EXERCISE, GET_EXERCISES } from "../queries";
 
 function ExerciseName({ exercise }: { exercise: Exercise }): JSX.Element {
+  const { workoutId } = useParams();
+
   const [showEdit, setShowEdit] = useState(false);
   const [newName, setNewName] = useState(exercise.name);
 
-  const [updateExercise] = useMutation(EDIT_EXERCISE);
+  const [updateExercise] = useMutation(EDIT_EXERCISE, {
+    refetchQueries: [
+      { query: GET_EXERCISES, variables: { workoutId: Number(workoutId) } },
+    ],
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
