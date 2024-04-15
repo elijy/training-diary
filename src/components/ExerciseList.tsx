@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setSelectedExercise } from "../store/slices/selectedExerciseSlice";
 
 import { useQuery } from "@apollo/client";
 import { useMutation } from "@apollo/client";
@@ -11,7 +12,11 @@ import ExerciseSets from "./ExerciseSets";
 import { Exercise } from "../types/Exercise";
 
 function ExerciseList({ workoutId }: { workoutId: string }): JSX.Element {
-  const [selectedExercise, setSelectedExercise] = useState<Exercise>(null);
+  const dispatch = useDispatch();
+  const selectedExercise = useSelector(
+    (state: { selectedExercise: { selectedExercise: Exercise } }) =>
+      state.selectedExercise.selectedExercise
+  );
 
   const {
     loading,
@@ -41,7 +46,9 @@ function ExerciseList({ workoutId }: { workoutId: string }): JSX.Element {
                 <ExerciseListItem
                   key={exercise.id}
                   exercise={exercise}
-                  onClick={(exercise) => setSelectedExercise(exercise)}
+                  onClick={(exercise) =>
+                    dispatch(setSelectedExercise(exercise))
+                  }
                   onDelete={(exercise) => {
                     deleteExercise({ variables: { id: exercise.id } });
                     setSelectedExercise(null);
