@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
 import { useParams } from "react-router-dom";
 
@@ -8,8 +9,11 @@ import { Exercise } from "../types/Exercise";
 
 import { EDIT_EXERCISE, GET_EXERCISES } from "../queries";
 
+import { setSelectedExercise } from "../store/slices/selectedExerciseSlice";
+
 function ExerciseName({ exercise }: { exercise: Exercise }): JSX.Element {
   const { workoutId } = useParams();
+  const dispatch = useDispatch();
 
   const [showEdit, setShowEdit] = useState(false);
   const [newName, setNewName] = useState(exercise.name);
@@ -23,6 +27,7 @@ function ExerciseName({ exercise }: { exercise: Exercise }): JSX.Element {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     updateExercise({ variables: { id: exercise.id, name: newName } });
+    dispatch(setSelectedExercise({ ...exercise, name: newName }));
     setShowEdit(false);
   };
 
